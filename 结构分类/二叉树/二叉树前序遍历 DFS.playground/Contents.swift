@@ -31,7 +31,7 @@ class TreeNode {
  */
 
 /**
-前序遍历 DFS
+前序遍历 DFS 递归
  根 -> 左 -> 右
  */
 
@@ -50,17 +50,18 @@ class Solution {
 
 // 遍历 栈
 class Solution1 {
-    var res: [Int] = []
     func preorderTraversal(_ root: TreeNode?) -> [Int] {
     if root == nil {return []}
     var stack = [TreeNode]()
     var res = [Int]()
     stack.append(root!)
+    // 栈不为空
     while let node = stack.popLast() {
         res.append(node.val)
         if let right = node.right { stack.append(right) }
         if let left = node.left { stack.append(left) }
     }
     return res
-}
+    }
+    
 }
