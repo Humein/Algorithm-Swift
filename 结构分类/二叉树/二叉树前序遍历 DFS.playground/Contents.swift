@@ -62,6 +62,6 @@ class Solution1 {
         if let left = node.left { stack.append(left) }
     }
     return res
+        
     }
-    
 }
