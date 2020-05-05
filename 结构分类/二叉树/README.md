@@ -6,7 +6,7 @@
 
  [每天学点数据结构 —— 红黑树（6k字总结](https://juejin.im/post/5dde545bf265da06074f13cc)
 
-
+ [二叉搜索树]([https://www.neroxie.com/2018/12/02/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/](https://www.neroxie.com/2018/12/02/二叉搜索树/))
 
 ### DFS / BFS 
 
