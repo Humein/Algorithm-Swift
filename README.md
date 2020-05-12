@@ -98,26 +98,6 @@
 
 ### 递归
 
-##### 1-100
-
-##### 对称二叉树
-
-##### 二叉树镜像
-
-##### 二叉树的深度
-
-##### 反转二叉树
-
-##### 反转链表
-
-##### 合并两个有序链表
-
-##### 平衡二叉树  1
-
-##### 遍历子视图
-
-
-
 ### 滑动窗口 <3个指针>
 
 * 滑动窗口:是指的是数组/字符串问题的常用抽象概念.窗口通常在数组/字符串中由开始和结束的索引定义的一系列元素的集合.即可[`i,j)(左闭,右开)`.而滑动窗口是可以将2个边界向某一个方向"滑动"的窗口.例如,我们将`[i,j)`向右滑动1个元素,则它将变成`[i+1,j+1)(左闭,右开)`;
@@ -154,13 +134,34 @@
 
 
 
-## **按照数据结构分类**
+## **目录**
 
-### 数组
+```swift
+方法分类 ['.DS_Store', '贪心算法', 'Recursion', '双指针', 'DP', '二分查找']
 
-### 链表
+二分查找 ['二分查找.playground', '.DS_Store', '二维数组中的查找.playground']
 
-### 二叉树
+双指针 ['怎么查找两个view的公共父视图.playground', '盛最多水的容器.playground', '.DS_Store', '反转字符串.playground', '链表相交.playground', '判断子序列.playground']
 
-### 排序
+贪心算法 ['README.md']
+
+DP ['README.md']
+
+Recursion ['反转链表.playground', '翻转二叉树.playground', '.DS_Store', '二叉树的深度 - maxDepth.playground', '1-100.playground', '对称的二叉树 - Symmetric.playground', 'travelsalSubViews.playground', 'README.md', '合并两个有序链表.playground', '平衡二叉树 - isBalanced .playground', '二叉树的镜像 - mirrorTree.playground']
+
+```
+
+```swift
+结构分类 ['.DS_Store', '二叉树', '链表', '数组', '栈', '排序']
+
+二叉树 ['二叉树的中序遍历.playground', '.DS_Store', '二叉树前序遍历 DFS.playground', '二叉树的最近公共祖先 1.playground', 'README.md', '二叉搜索树的最近公共祖先.playground', '二叉树的层序遍历BFS.playground']
+
+链表 ['.DS_Store', '链表相交.playground', '通过view去找到对应的控制器.playground']
+
+排序 ['.DS_Store', 'BubbleSort.playground']
+
+数组 ['.DS_Store', ' 两数之和 II - 输入有序数组.playground', '两数之和.playground', '合并两个有序数组.playground', '只出现一次的数字.playground']
+
+栈 ['.DS_Store', '翻转单词顺序.playground']
+```
 

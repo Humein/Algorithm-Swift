@@ -377,7 +377,7 @@ func findFirstError(_ nums :[Int],_ target :Int) -> Int {
 
 findFirstError([1,2,3,4,5], 4)
 
-//MARK:- list6:
+//MARK:- list6: XXTODO
 // 442. 数组中重复的数据
 func findDuplicates(_ nums :[Int]) -> [Int] {
     guard nums.count > 1 else {
