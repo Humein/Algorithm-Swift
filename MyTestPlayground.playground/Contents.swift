@@ -901,7 +901,7 @@ func mergeKLists(_ lists: [LinkNode?]) -> LinkNode? {
         return head.next
 }
 
-
+// XXTODO
 //53. 最大子序和
 /*
  https://blog.csdn.net/lin1109221208/article/details/92997704
@@ -2173,4 +2173,8 @@ func recursionTrailTraversal(_ root: TreeNode?) {
 }
 
 
+/** 2020.5。17
+有序数组中某个数字出现的次数
+ 字符串全排列
+*/
 

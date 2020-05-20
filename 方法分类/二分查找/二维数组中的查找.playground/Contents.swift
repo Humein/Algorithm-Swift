@@ -49,3 +49,20 @@ func findNumberIn2DArray(data: [[Int]],number: NSInteger) -> Bool{
     return false
 }
 
+func findNumIn2DArray(data: [[Int]],number: NSInteger) -> Bool {
+    
+    var row = 0, col = data[0].count - 1
+    
+    while row < data.count && col >= 0 {
+        let rVal = data[row][col]
+        if rVal == number {
+            return true
+        }else if rVal > number{
+            col -= 1
+        }else{
+            row += 1
+        }
+    }
+    return false
+}
+

@@ -65,3 +65,32 @@ class Solution1 {
         
     }
 }
+
+func travelSubView(_ rootView: UIView){
+    if rootView.subviews.count == 0 {
+        return
+    }
+    var res = [UIView]()
+    var queue = [UIView]()
+    queue.append(rootView)
+    while let view = queue.popLast() {
+        res.append(view)
+        if view.subviews.count > 0 {
+            for item in view.subviews{
+                queue.append(item)
+            }
+        }
+    }
+}
+
+func recursionSubView(_ view :UIView){
+    var queue = [UIView]()
+    
+    if view.subviews.count > 0 {
+        for item in view.subviews{
+            recursionSubView(item)
+        }
+    }
+}
+let view = UIView()
+recursionSubView(view)

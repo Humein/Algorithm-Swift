@@ -36,18 +36,15 @@ func reverseWords(_ s: String) -> String {
     .joined(separator: " ")
 }
 
+// 移除字符串中的空格
 func removeBlankWords(_ s: String) -> String {
     return s.split(separator: " ")
     .joined(separator: " ")
 }
 
-func reBlankWords(_ s: String) ->  String {
-    return s.split(separator: " ")
-    .joined(separator: " ")
-}
 
 reverseWords("Animal    Baby")
-reBlankWords("    老师， 你      好     ")
+removeBlankWords("    老师， 你      好     ")
 
 //MARK:- filter
 // 筛选里面的闭包必须是返回Bool类型的闭包

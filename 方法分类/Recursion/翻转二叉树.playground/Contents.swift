@@ -22,6 +22,7 @@ class TreeNode {
  递归最简单
  */
 
+
 func invertTree(_ root: TreeNode?) -> TreeNode? {
     if root == nil {
         return root
