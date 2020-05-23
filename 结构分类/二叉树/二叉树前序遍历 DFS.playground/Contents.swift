@@ -46,7 +46,6 @@ class Solution {
     _ = preorderTraversal(root.right)
     return res
 }
-}
 
 // 遍历 栈
 class Solution1 {
@@ -93,4 +92,3 @@ func recursionSubView(_ view :UIView){
     }
 }
 let view = UIView()
-recursionSubView(view)

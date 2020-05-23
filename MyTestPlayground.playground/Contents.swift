@@ -3,120 +3,7 @@ import UIKit
    [LeetCode-Swift](https://github.com/soapyigu/LeetCode-Swift)
    [swift-leetCode 目录](https://github.com/strengthen/LeetCode/blob/master/README-CN.md)
  */
- 
 
-//MARK:- 递归
-//MARK:- 排序
-//MARK:- 动态规划
-//MARK:- 贪心算法
-//MARK:- 链表
-//MARK:- 字符串
-//MARK:- 数组
-//MARK:- 二叉树
-
-
-
-//MARK:- 递归
-/*  递归详解  https://mp.weixin.qq.com/s/mJ_jZZoak7uhItNgnfmZvQ
- 步骤
- 0. 是否有边界
- 1. 定义递归函数功能
- 2. 寻找结束条件
- 3. 寻找等价关系
-    等价条件中，一定是范围不断在缩小，对于链表来说，就是链表的节点个数不断在变小
- 
- 处理好递归的3个主要的点:
- a) 出口条件，即递归“什么时候结束”，这个通常在递归函数的开始就写好;
- b) 如何由"情况 n" 变化到"情况 n+1/n-1", 也就是非出口情况，也就是一般情况——"正在"递归中的情况；
- c) 初始条件，也就是这个递归调用以什么样的初始条件开始
-
- 递归由于是函数调用自身， 而函数调用是有时间和空间的消耗的：每一次函数调用，都需要在内存栈中分配空间以保存参数、返回地址及临时变量，而且往栈里压入数据和弹出数据都需要时间。另外，递归中有可能很多计算都是重复的，从而对性能带来很大的负面影响。除了效率之外，还有可能使调用栈溢出，前面分析中提到需要为每一次函数调用在内存栈中分配空间，而每个进程的栈的容量是有限的。当递归调用的层级太多时，就会超出栈的容量，从而导致调用栈溢出。
- */
-
-/// 1-100 相加
-func recursion100(_ n :Int) -> Int{
-    if n == 1 {
-        return 1
-    }
-    print(n)
-    return recursion100(n - 1) + n
-}
-recursion100(10)
-
-/// 遍历子view
-func recursionSubView(_ view :UIView){
-    if view.subviews.count > 0 {
-        for item in view.subviews{
-            print(item)
-            recursionSubView(item)
-        }
-    }
-}
-let view = UIView()
-recursionSubView(view)
-
-//MARK:- 排序
-//冒泡排序 升序
-/*
- O(n²) 时间
- O(1)  空间
- 冒泡排序是一种稳定的排序
- */
-
-func bubbleSort(unsortedArray: inout [Int]){
-    guard unsortedArray.count > 1 else{
-        return
-    }
-
-    for i in 0 ..< unsortedArray.count - 1 {
-        var exchanged = false
-        for j in 0 ..< unsortedArray.count - 1 - i {
-            if unsortedArray[j] > unsortedArray[j+1] {
-                unsortedArray.swapAt(j, j+1)
-                exchanged = true
-            }
-        }
-        //若无交换则可直接返回
-        if exchanged == false {
-            break
-        }
-    }
-}
-var list = [2, 3, 5, 7, 4, 8, 6 ,10 ,1, 9]
-bubbleSort(unsortedArray: &list)
-print(list)
-
-
-
-//MARK:- 动态规划    https://juejin.im/post/5dcb8201e51d45210f046f5a#heading-0
-/*
- 动态规划在查找有很多重叠子问题的情况的最优解时有效。它将问题重新组合成子问题。为了避免多次解决这些子问题，它们的结果都逐渐被计算并被保存，从简单的问题直到整个问题都被解决。因此，动态规划保存递归时的结果，因而不会在解决同样的问题时花费时间。
-
- 动态规划只能应用于有最优子结构的问题。最优子结构的意思是局部最优解能决定全局最优解（对有些问题这个要求并不能完全满足，故有时需要引入一定的近似）。简单地说，问题能够分解成子问题来解决。
- 
- 适用情况
- 最优子结构性质。如果问题的最优解所包含的子问题的解也是最优的，我们就称该问题具有最优子结构性质（即满足最优化原理）。最优子结构性质为动态规划算法解决问题提供了重要线索。
- 无后效性。即子问题的解一旦确定，就不再改变，不受在这之后、包含它的更大的问题的求解决策影响。
- 子问题重叠性质。子问题重叠性质是指在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。动态规划算法正是利用了这种子问题的重叠性质，对每一个子问题只计算一次，然后将其计算结果保存在一个表格中，当再次需要计算已经计算过的子问题时，只是在表格中简单地查看一下结果，从而获得较高的效率。
- */
-
-
-//MARK:-  贪心算法
-/*
- 贪心算法与动态规划的不同在于它对每个子问题的解决方案都做出选择，不能回退。
- 动态规划则会‘保存’以前的运算结果，并根据以前的结果对当前进行选择，有回退功能。
- 一旦一个问题可以通过贪心法来解决，那么贪心法一般是解决这个问题的最好办法。由于贪心法的高效性以及其所求得的答案比较接近最优结果，贪心法也可以用作辅助算法或者直接解决一些要求结果不特别精确的问题。
- 步骤
- 创建数学模型来描述问题。
- 把求解的问题分成若干个子问题。
- 对每一子问题求解，得到子问题的局部最优解。
- 把子问题的解局部最优解合成原来解问题的一个解。
- */
-
-
-
-
-//MARK:- 链表
 /// 链表结构
 class listNode {
     var next: listNode?
@@ -135,10 +22,41 @@ public class LinkNode{
     }
 }
 
-///  相交链表 编写一个程序，找到两个单链表相交的起始节点。
 
+//MARK:- 二叉树 - 递归
+/// 1-100 相加
+func recursion100(_ n :Int) -> Int{
+    if n == 1 {
+        return 1
+    }
+    print(n)
+    return recursion100(n - 1) + n
+}
+
+/// M-N 相加
+func recursionNM(_ n: Int, _ m: Int)  ->Int{
+    if m == n {
+        return n
+    }
+    return n < m ? recursionNM(n, m - 1 ) + m  : recursionNM(n - 1,m) + n
+}
+
+/// 遍历子view
+func recursionSubView(_ view :UIView){
+    if view.subviews.count > 0 {
+        for item in view.subviews{
+            print(item)
+            recursionSubView(item)
+        }
+    }
+}
+
+
+//MARK:- 链表 - 多指针/递归
 /*
+ 相交链表 编写一个程序，找到两个单链表相交的起始节点。
  双指针法O(n)
+ ab 两个链表同时遍历，如果其中有一个为nil,就重置成另一个，然后继续。直到a==b
  */
 func getIntersectionNode(_ headA : listNode?, _ headB : listNode?)  ->  listNode?{
     if headA == nil || headB == nil {
@@ -146,7 +64,6 @@ func getIntersectionNode(_ headA : listNode?, _ headB : listNode?)  ->  listNode
     }
     var pA = headA
     var pB = headB
-    
     while pA !== pB {
         pA = (pA == nil) ? headB : pA?.next
         pB = (pB == nil) ? headA : pB?.next
@@ -154,33 +71,23 @@ func getIntersectionNode(_ headA : listNode?, _ headB : listNode?)  ->  listNode
     return pA
 }
 
-
-//21 合并两个有序链表
-// 迭代 可类比88题
-// 递归
-/*
- 时间复杂度：O(n + m)。 因为每次调用递归都会去掉 l1 或者 l2 的头元素（直到至少有一个链表为空），函数 mergeTwoList 中只会遍历每个元素一次。所以，时间复杂度与合并后的链表长度为线性关系。
-
- 空间复杂度：O(n + m)。调用 mergeTwoLists 退出时 l1 和 l2 中每个元素都一定已经被遍历过了，所以 n + mn+m 个栈帧会消耗 O(n + m) 的空间。
- 
+/* 21 合并两个有序链表 递归
+ 时间复杂度：O(n + m)。
+ 空间复杂度：O(n + m)。
  首先同时遍历两个链表，比较两个链表当前的值，小的值就作为新链表的元素，然后小的值的链表就走到下一个元素，大的值的链表还是当前元素。接着继续遍历，重复上述步骤，直到链表遍历完毕。这样就可以得到新的有序链表了。 需要注意几个地方：
-
+ 
  - 这个题目，最好是创建一个头结点来作为辅助，这样就不用判断新链表的头结点是l1的头结点还是l2的头结点了。
  - 遍历到最后，一般会有一个链表是先遍历完毕的。接着将另外一个链表拼接起来就行了，不用继续再一个个遍历拼接。
 
  */
 func mergeTwoLists(_ l1: listNode?,_ l2: listNode?) -> listNode?{
     // l1/l2 == nil  边界          l1?.next 递归转移方程
-
     if l1 == nil {
         return l2
     }
-    
     if l2 == nil{
         return l1
     }
-    print(l1!.val)
-
     if l1!.val < l2!.val{
         l1?.next = mergeTwoLists(l1?.next, l2)
         return l1
@@ -190,43 +97,27 @@ func mergeTwoLists(_ l1: listNode?,_ l2: listNode?) -> listNode?{
     }
 }
 
-let node5 = listNode(value: 5, next: nil)
-let node4 = listNode(value: 4, next: node5)
-let node3 = listNode(value: 3, next: node4)
-let node2 = listNode(value: 2, next: node3)
-let node1 = listNode(value: 1, next: node2)
-mergeTwoLists(node1,node2)
-
-/// 206. 反转链表  递归还是在借助函数调用栈的思想，其实本质上也是一个栈。
 /*
+ 206. 反转链表  递归还是在借助函数调用栈的思想，其实本质上也是一个栈。
  等价条件中，一定是范围不断在缩小，对于链表来说，就是链表的节点个数不断在变小
-  reverseList(head) 等价于 ** reverseList(head.next)** + 改变一下1，2两个节点的指向。好了，等价关系找出来了
+
+ '一个递归一般包含3个点
+ 1. 边界 一般也是递归结束条件
+ 2. 递归转移方程
+ 3. 出/入栈的地方 处理逻辑
+ 
  */
 func reverseLinkRec(_ head: listNode?) -> listNode?{
-    
     if head == nil || head?.next == nil {
         return head
     }
-    
-    //反转第一个节点之后的链表, 我们先把递归的结果保存起来，先不返回，因为我们还不清楚这样递归是对还是错。
     // 不放在 逻辑处理后面 是因为逻辑处理 会改变head?.next
-    print("=========")
     let newHead = reverseLinkRec(head?.next) // 栈顶
-    print("---------")
-
 //  只需要把节点 2 的 next 指向 1，然后把 1 的 next 指向 null,不就行了？
     head?.next?.next = head
     head?.next = nil
     return newHead
 }
-
-var head0 = listNode.init(value: 0, next: nil)
-var head1 = listNode.init(value: 1, next: head0)
-var head2 = listNode.init(value: 2, next: head1)
-var head3 = listNode.init(value: 3, next: head2)
-var head = listNode.init(value: 4, next: head3)
-reverseLinkRec(head)
-
 // 迭代实现
 func ReverseListWhile(_ head: LinkNode?) -> LinkNode? {
     var reversedHead: LinkNode? = nil
@@ -244,9 +135,10 @@ func ReverseListWhile(_ head: LinkNode?) -> LinkNode? {
     return reversedHead
 }
 
-//MARK:- 字符串
-//344. 反转字符串
+
+//MARK:- 字符串 - 多指针
 /*
+ 344. 反转字符串
 双指针 迭代方式
 */
 func reverseString(_ s: inout [Character]){
@@ -267,8 +159,26 @@ func reverseString(_ s: inout [Character]){
     }
 }
 
+
+/**
+ 单词反转  s 是 "the sky is blue", 那么反转就是 "blue is sky the"。
+*/
+func reverseWords(s: String?) -> String? {
+  guard let s = s else {
+    return nil
+  }
+  var chars = Array(s), start = 0
+  reverse(&chars, 0, chars.count - 1)
+  for i in 0 ..< chars.count {
+    if i == chars.count - 1 || chars[i + 1] == " " {
+      reverse(&chars, start, i)
+      start = i + 2
+    }
+  }
+  return String(chars)
+}
 // 字符串反转
-fileprivate func reverse<T>(_ chars: inout [T], _ start: Int, _ end: Int) {
+func reverse<T>(_ chars: inout [T], _ start: Int, _ end: Int) {
   var start = start, end = end
   while start < end {
     swap(&chars, start, end)
@@ -276,32 +186,13 @@ fileprivate func reverse<T>(_ chars: inout [T], _ start: Int, _ end: Int) {
     end -= 1
   }
 }
-fileprivate func swap<T>(_ chars: inout [T], _ p: Int, _ q: Int) {
+func swap<T>(_ chars: inout [T], _ p: Int, _ q: Int) {
   (chars[p], chars[q]) = (chars[q], chars[p])
 }
 
-// 单词反转  s 是 "the sky is blue", 那么反转就是 "blue is sky the"。
-func reverseWords(s: String?) -> String? {
-  guard let s = s else {
-    return nil
-  }
 
-  var chars = Array(s), start = 0
-  reverse(&chars, 0, chars.count - 1)
-
-  for i in 0 ..< chars.count {
-    if i == chars.count - 1 || chars[i + 1] == " " {
-      reverse(&chars, start, i)
-      start = i + 2
-    }
-  }
-
-  return String(chars)
-}
-
-
-/// 392.判断子序列
 /*
+ 392.判断子序列
  判断 s 是否为 t 的子序列。
  本文主要运用的是双指针的思想，指针si指向s字符串的首部，指针ti指向t字符串的首部。
  */
@@ -315,10 +206,8 @@ func isSubsequence(_ s :String, _ t :String) -> Bool{
         }
         tp += 1
     }
-    
     return sp == s.count
 }
-print(isSubsequence("acd","abcd"))
 
 //MARK:- 数组
 // 658. 找到 K 个最接近的元素
@@ -340,7 +229,39 @@ func findClosestElements(_ arr: [Int],_ k: Int,_ x: Int) -> [Int]{
     return Array(arr[p1..<(p1+k)])
 }
 
-let chapter = findClosestElements([1,3,5,7,9], 1, 8)
+
+//MARK:- 排序
+//冒泡排序 升序
+/*
+ O(n²) 时间
+ O(1)  空间
+ 冒泡排序是一种稳定的排序
+ */
+func bubbleSort(unsortedArray: inout [Int]){
+    guard unsortedArray.count > 1 else{
+        return
+    }
+
+    for i in 0 ..< unsortedArray.count - 1 {
+        var exchanged = false
+        for j in 0 ..< unsortedArray.count - 1 - i {
+            if unsortedArray[j] > unsortedArray[j+1] {
+                unsortedArray.swapAt(j, j+1)
+                exchanged = true
+            }
+        }
+        //若无交换则可直接返回
+        if exchanged == false {
+            break
+        }
+    }
+}
+
+//MARK:- 动态规划
+
+//MARK:- 贪心算法
+
+
 
 //278. 第一个错误的版本
 /*
@@ -1081,7 +1002,10 @@ func uniquePaths(_ m: Int, _ n: Int) -> Int {
 }
 uniquePaths(3, 2)
 
-//MARK:- list10:
+
+
+
+
 
 //5. 最长回文子串
 /*
@@ -2137,32 +2061,88 @@ func sum(num1 :Int, with num2 :Int) -> Int {
 
 
 /**
- - 二叉递归先序遍历
+ - 二叉  先序遍历
     - 考察到一个节点后，即刻输出该节点的值，并继续遍历其左右子树。(根左右)
    先输出节点的值，再递归遍历左右子树。中序和后序的递归类似，改变根节点输出位置即可。
+ 
+ 前序遍历 DFS 递归
+ 根 -> 左 -> 右
  */
-func recursionPreTraversal(_ tree: TreeNode?){
-    if tree != nil {
-        print("\(tree!.val)" + " ")
-        recursionPreTraversal(tree!.left)
-        recursionPreTraversal(tree!.right)
-    }
+// 递归
+class Solution1234 {
+    var res: [Int] = []
+    func preorderTraversal(_ root: TreeNode?) -> [Int] {
+    guard let root = root else { return [] }
+    res.append(root.val)
+    _ = preorderTraversal(root.left)
+    _ = preorderTraversal(root.right)
+    return res
 }
-recursionPreTraversal(tnode1)
+    
+    // 遍历 栈
+    class Solution111 {
+        func preorderTraversal(_ root: TreeNode?) -> [Int] {
+        if root == nil {return []}
+        var stack = [TreeNode]()
+        var res = [Int]()
+        stack.append(root!)
+        // 栈不为空
+        while let node = stack.popLast() {
+            res.append(node.val)
+            if let right = node.right { stack.append(right) }
+            if let left = node.left { stack.append(left) }
+        }
+        return res
+            
+        }
+    }
 
 /**
-- 二叉递归中序遍历
+- 二叉递归中序遍历 BFS
   - 考察到一个节点后，将其暂存，遍历完左子树后，再输出该节点的值，然后遍历右子树。(左根右)
 过程和递归先序遍历类似
+     中序遍历
+    左子树-> 根结点 -> 右子树
+     
+     后序遍历：左子树 ---> 右子树 ---> 根结点
 */
-func recursionMidTraversal(_ root: TreeNode?) {
-    if root != nil {
-        recursionMidTraversal(root?.left)
-        print("\(root!.val)" + " " )
-        recursionMidTraversal(root?.right)
+// 递归
+class Solution {
+    var res = [Int]()
+    func inorderTraversal(_ root: TreeNode?) -> [Int] {
+        if root == nil {
+            return []
+        }
+        _ = inorderTraversal(root?.left)
+        res.append(root!.val)
+        _ = inorderTraversal(root?.right)
+
+        return res
     }
 }
-recursionMidTraversal(tnode1)
+
+// 迭代 栈
+class Solutions {
+    func inorderTraversal(_ root: TreeNode?) -> [Int] {
+        var stack: [TreeNode] = []
+        var result: [Int] = []
+        var node: TreeNode? = root
+        
+        while node != nil || !stack.isEmpty {
+            while node != nil {
+                stack.append(node!)
+                node = node!.left
+            }
+            
+            node = stack.popLast()
+            result.append(node!.val)
+            node = node?.right
+        }
+        
+        return result
+    }
+}
+
 
 /**
 - 二叉递归后序遍历
@@ -2173,8 +2153,80 @@ func recursionTrailTraversal(_ root: TreeNode?) {
 }
 
 
-/** 2020.5。17
-有序数组中某个数字出现的次数
- 字符串全排列
-*/
+    /**
+     二叉树层次遍历 BFS 利用队列的方式
+     */
+    func levelOrder(_ root: TreeNode?) -> [[Int]] {
+         guard let r = root else {
+             return [[Int]]()
+         }
+         var result = [[Int]]()
+         var queue = [TreeNode]()
+         queue.append(r)
+         while queue.count > 0 {
+             let layer = Array(queue)
+             var layerVal = [Int]()
+             queue.removeAll()
+             for node in layer {
+                 layerVal.append(node.val)
+                 if let ln = node.left {
+                     queue.append(ln)
+                 }
+                 if let rn = node.right {
+                     queue.append(rn)
+                 }
+             }
+             // result.insert(layerVal, at: 0) 倒序
+             result.append(layerVal) // 正序
+         }
+         return result
+     }
+
+     
+
+/**
+ 179. 最大数
+ 给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数。
+
+ 示例 1:
+
+ 输入: [10,2]
+ 输出: 210
+ 示例 2:
+
+ 输入: [3,30,34,5,9]
+ 输出: 9534330
+ 说明: 输出结果可能非常大，所以你需要返回一个字符串而不是整数。
+ */
+
+func largestNumber(_ nums: [Int]) -> String {
+    let sorded = nums.map{ "\($0)" }.sorted{ $0+$1 > $1+$0 }
+    if sorded[0].isEqual("0") { return "0" }
+    return sorded.joined()
+}
+
+
+
+/**
+ 1. 将一个整数逆序，  输入：   48432，   输出：   23484 ，要求不能使用字符串、向量、容器等做辅助处理。
+
+ */
+func reverseString(_ s: inout [Character]){
+    //记得 边界1
+    if  s.count < 2 {
+        return
+    }
+    var p1 = 0, p2 = s.count - 1
+    // let sArr = Array(s) 输入就是数组了
+    // 指针边界2
+    while p1 < p2 {
+        // tmp 应该提出来声明 减少创建
+        let tmp = s[p1]
+        s[p1] = s[p2]
+        s[p2] = tmp
+        p1 += 1
+        p2 -= 1
+    }
+}
+
 
