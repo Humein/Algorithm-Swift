@@ -298,7 +298,7 @@ func findFirstError(_ nums :[Int],_ target :Int) -> Int {
 
 findFirstError([1,2,3,4,5], 4)
 
-//MARK:- list6: XXTODO
+//MARK:- list6:
 // 442. 数组中重复的数据
 func findDuplicates(_ nums :[Int]) -> [Int] {
     guard nums.count > 1 else {
@@ -470,7 +470,12 @@ func twoSums(_ nums: [Int],_ target: Int) ->[Int]{
 }
 twoSums([2, 7, 11, 15], 17)
 
-// 如何在有序数组中找出和等于给定值的两个元素？LeetCode第167题
+
+/**
+ 167. 两数之和 II - 输入有序数组
+ 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
+ 函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2
+ */
 func twoSum(_ numbers: [Int], _ target: Int) -> [Int] {
     var i = 0, j = numbers.count - 1
     while i < j {
@@ -609,6 +614,7 @@ func findCloseRoot(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNod
         return root
     }
     
+    
     let left = findCloseRoot(root?.left, p, q)
     let right = findCloseRoot(root?.right, p, q)
     
@@ -671,16 +677,6 @@ func findVC(_ view: UIView?) -> UIViewController?{
      return nil;
  }
  */
-
-
-
-//MARK:- list1：
-//MARK:- list2：
-//MARK:- list3:
-//MARK:- list4:
-//MARK:- list5:
-
-
 
 
 //14. 最长公共前缀
@@ -943,11 +939,27 @@ func lengthOfLongestSubstringWD(_ s: String) -> Int {
 }
 lengthOfLongestSubstringWD("bbbbacde")
 
-//46. 全排列
 /*
- 回溯算法关键在于:不合适就退回上一步
- 然后通过约束条件, 减少时间复杂度.
+ 全排列 非回溯算法
  */
+func permute(_ nums: [Int]) -> [[Int]] {
+    guard nums.count > 1 else { return [nums] }
+    var tmpNums = nums
+    let l = tmpNums.removeLast()
+    let array = permute(tmpNums)
+    /*
+reduce 函数接受两个参数：
+第一个为初始值，它用来存储初始值和每次迭代中的返回值。
+另一个参数是一个闭包，闭包包含两个参数：初始值或者当前操作的结果、集合中的下一个 item 。
+*/
+    return array.reduce(into: [[Int]]()) { (result, element) in
+        for i in element.startIndex...element.endIndex {
+            var tmpElement = element
+            tmpElement.insert(l, at: i)
+            result.append(tmpElement)
+        }
+    }
+}
 
 
 //62. 不同路径
@@ -1353,7 +1365,6 @@ func robDP(_ nums: [Int]) -> Int {
  return newHead
  */
 
-//#include "leetCode.hpp"
 
 func hasCycle(_ head: LinkNode?) -> Bool{
     var fast = head, slow = head
@@ -1414,9 +1425,6 @@ func detectCycle(_ head: LinkNode?) -> LinkNode?{
     
     return fast!
 }
-
-
-
 
 
 
@@ -1733,7 +1741,6 @@ func deleteNode2(_ head: inout listNode?, _ toBeDeleted: listNode?){
          node.next = nil
          */
     }
-    
 }
 
 // 一个函数改变函数外面变量的值(将一个值类型参数以引用方式传递)，这时，Swift提供的inout关键字就可以实现
@@ -1811,12 +1818,7 @@ func deleteDupNodel(_ head: listNode?) -> listNode?{
  输入一个链表，输出该链表中倒数第k个结点。为了符合大多数人的习惯，
   本题从1开始计数，即链表的尾结点是倒数第1个结点。例如一个链表有6个结点，
   从头结点开始它们的值依次是1、2、3、4、5、6。这个链表的倒数第3个结点是值为4的结点。
- 
- 思路1：如果能从链表尾部开始遍历，那只需倒序遍历 k 个节点即是要找出的节点，但是由于是单链表，只能从头结点开始遍历。
 
- 思路2：先遍历一遍该单链表，获取链表的总节点数 n，那么第 n-k+1 这个节点就是倒数第 k 个节点。所以第二次再遍历到第 n-k+1 这个节点即可，但是题目要求只能遍历一遍链表。
-
- 思路3：通过遍历该链表把节点都存入到一个数组中，然后再通过数组下标可直接获取到倒数第 k 个节点，但是这样会需要额外的存储空间，空间复杂度为 O(n)。
  
  最终思路：  双指针
  假如有两个指针一个快一个慢，快和慢之间的距离为k，就是从链表尾到倒数第k个节点的距离，当快的指针走链表尾部，这时候慢指针是不是就是指向倒数第k个节点
