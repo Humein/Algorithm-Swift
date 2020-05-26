@@ -11,6 +11,7 @@ class AlgorithmSwift: NSObject {
        [swift-leetCode 目录](https://github.com/strengthen/LeetCode/blob/master/README-CN.md)
      */
 
+    
     /// 二叉树结构
     public class TreeNode: Equatable {
          public var parent: TreeNode?
@@ -63,6 +64,19 @@ class AlgorithmSwift: NSObject {
         }
         return n < m ? recursionNM(n, m - 1 ) + m  : recursionNM(n - 1,m) + n
     }
+    
+    /**
+         用递归写一个算法，计算从n到m的和
+         */
+        
+    func sum(n: Int, m: Int) -> Int {
+        if m <= n {
+            return n
+        }
+        return m + sum(n, m - 1)
+    }
+
+    
 
     /// 遍历子view
     func recursionSubView(_ view :UIView){
@@ -106,6 +120,7 @@ class AlgorithmSwift: NSObject {
         _ = preorderTraversal(root.left)
         _ = preorderTraversal(root.right)
         return res
+    }
     }
 
     // 遍历 栈
@@ -941,6 +956,55 @@ class AlgorithmSwift: NSObject {
         
         return result
     }
+        
+        
+    /**
+         9. 回文数
+         判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+         你能不将整数转为字符串来解决这个问题吗？
+         现在，让我们来考虑如何反转后半部分的数字。
+         对于数字 1221，如果执行 1221 % 10，我们将得到最后一位数字 1，要得到倒数第二位数字，我们可以先通过除以 10 把最后一位数字从 1221 中移除，1221 / 10 = 122，再求出上一步结果除以 10 的余数，122 % 10 = 2，就可以得到倒数第二位数字。如果我们把最后一位数字乘以 10，再加上倒数第二位数字，1 * 10 + 2 = 12，就得到了我们想要的反转后的数字。如果继续这个过程，我们将得到更多位数的反转数字
+         
+         现在的问题是，我们如何知道反转数字的位数已经达到原始数字位数的一半？
+         我们将原始数字除以 10，然后给反转后的数字乘上 10，所以，当原始数字小于反转后的数字时，就意味着我们已经处理了一半位数的数字。
+    */
+        func isPalindrome(_ x: Int) -> Bool {
+            if x < 0 {
+                return false
+            }
+            
+            var n = x
+            var reverse = 0
+            while n > 0 {
+                reverse = reverse * 10 + n % 10
+                n /= 10
+            }
+            
+            return reverse == x
+        }
+        
+
+        /**
+         7. 整数反转
+         给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
+         */
+        func reverse(_ x: Int) -> Int {
+            //反转后的整数
+            var rev = 0
+            var X = x
+            while X != 0 {
+                let a = X % 10
+                X = X / 10
+                rev = rev * 10 + a
+            }
+            if rev > Int32.max || rev < Int32.min {
+                return 0
+            }
+            
+            return rev
+        }
+        
+    
 
     //MARK:- 数组
     
@@ -1170,7 +1234,14 @@ class AlgorithmSwift: NSObject {
     }
     
 
-    ///136. 只出现一次的数字  遍历异或
+    /**
+         136. 只出现一次的数字  遍历异或
+         给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+
+         说明：
+
+         你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+ */
     func singleNum(_ nums :[Int]) -> Int{
         var result = 0
         for num in nums {
@@ -1178,6 +1249,19 @@ class AlgorithmSwift: NSObject {
         }
         return result
     }
+    
+    /**
+     179. 最大数
+     给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数。
+     说明:给定一个Int型数组，用里面的元素组成一个最大数，因为数字可能非常大，用字符串输出
+     */
+
+    func largestNumber(_ nums: [Int]) -> String {
+        let sorded = nums.map{ "\($0)" }.sorted{ $0+$1 > $1+$0 }
+        if sorded[0].isEqual("0") { return "0" }
+        return sorded.joined()
+    }
+    
     
     /*
      88. 合并两个有序数组 ---  3个指针迭代
@@ -1747,6 +1831,8 @@ class AlgorithmSwift: NSObject {
     
     
     //MARK:- 未分类
+        
+        
     // offer65：不用加减乘除做加法
     // 题目：写一个函数，求两个整数之和，要求在函数体内不得使用＋、－、×、÷
     /* 四则运算符号。
@@ -1764,25 +1850,5 @@ class AlgorithmSwift: NSObject {
         return num1
     }
     
-    /**
-     179. 最大数
-     给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数。
-
-     示例 1:
-
-     输入: [10,2]
-     输出: 210
-     示例 2:
-
-     输入: [3,30,34,5,9]
-     输出: 9534330
-     说明: 输出结果可能非常大，所以你需要返回一个字符串而不是整数。
-     */
-
-    func largestNumber(_ nums: [Int]) -> String {
-        let sorded = nums.map{ "\($0)" }.sorted{ $0+$1 > $1+$0 }
-        if sorded[0].isEqual("0") { return "0" }
-        return sorded.joined()
-    }
 
 }
