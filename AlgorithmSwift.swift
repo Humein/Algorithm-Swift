@@ -531,7 +531,7 @@ class AlgorithmSwift: NSObject {
         }
         // 不放在 逻辑处理后面 是因为逻辑处理 会改变head?.next
         let newHead = reverseLinkRec(head?.next) // 栈顶
-    //  只需要把节点 2 的 next 指向 1，然后把 1 的 next 指向 null,不就行了？
+        //  只需要把节点 2 的 next 指向 1，然后把 1 的 next 指向 null,不就行了？
         head?.next?.next = head
         head?.next = nil
         return newHead
@@ -1007,6 +1007,22 @@ class AlgorithmSwift: NSObject {
     
 
     //MARK:- 数组
+    
+    /**
+     面试题21. 调整数组顺序使奇数位于偶数前面
+     */
+    func exchange(_ nums: [Int]) -> [Int] {
+        var array1 = [Int]()
+        var array2 = [Int]()
+        for num in nums {
+            if num % 2 != 0 {
+                array1.append(num)
+            } else {
+                array2.append(num)
+            }
+        }
+        return array1 + array2
+    }
     
      /**
       二分查找 双指针
@@ -1831,7 +1847,6 @@ class AlgorithmSwift: NSObject {
     
     
     //MARK:- 未分类
-        
         
     // offer65：不用加减乘除做加法
     // 题目：写一个函数，求两个整数之和，要求在函数体内不得使用＋、－、×、÷
