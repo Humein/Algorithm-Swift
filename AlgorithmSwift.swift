@@ -53,7 +53,6 @@ class AlgorithmSwift: NSObject {
         if n == 1 {
             return 1
         }
-        print(n)
         return recursion100(n - 1) + n
     }
 
@@ -65,15 +64,20 @@ class AlgorithmSwift: NSObject {
         return n < m ? recursionNM(n, m - 1 ) + m  : recursionNM(n - 1,m) + n
     }
     
-    /**
-         用递归写一个算法，计算从n到m的和
+    /* 用递归写一个算法，计算从n到m的和  n <  m
          */
-        
     func sum(n: Int, m: Int) -> Int {
         if m <= n {
             return n
         }
         return m + sum(n, m - 1)
+    }
+
+    func recursion(_ m: Int, step: Int) -> Int {
+        if m <= step {
+            return m
+        }
+        return m + recursion(m - step, step)
     }
 
     
@@ -82,7 +86,6 @@ class AlgorithmSwift: NSObject {
     func recursionSubView(_ view :UIView){
         if view.subviews.count > 0 {
             for item in view.subviews{
-                print(item)
                 recursionSubView(item)
             }
         }
@@ -229,6 +232,40 @@ class AlgorithmSwift: NSObject {
         }
         return result
     }
+    
+    /*
+     103. 二叉树的锯齿形层次遍历
+     给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+     */
+    
+    func zigzagLevelOrder(_ root: TreeNode?) -> [[Int]] {
+        var arr = [TreeNode]()
+        var result = [[Int]]()
+        guard let r = root else {
+            return result
+        }
+        arr = [r]
+        var level = 0
+        while arr.count > 0 {
+            var temp = [Int]()
+            var newArr = [TreeNode]()
+            for item in arr {
+                temp.append(item.val)
+                if let l = item.left {
+                    newArr.append(l)
+                }
+                if let r = item.right {
+                    newArr.append(r)
+                }
+            }
+            result.append(level % 2 == 0 ? temp : temp.reversed())
+            arr = newArr
+            level += 1
+        }
+        return result
+    }
+
+    
     
     /**
      offer26：树的子结构  树t是否是树s的子树
@@ -956,6 +993,36 @@ class AlgorithmSwift: NSObject {
         
         return result
     }
+    
+    /**
+     有一个整数的无序数组a[N],
+     对于其中的元素a[i],
+     如果其前面a[0]~a[i-1]中，
+     如果有且仅有一个元素比它大，
+     我们称之为独二元素。
+     设计一个函数，
+     输入一个数组a[N],
+     找出其中的独二元素，
+     并输出出来，
+     如果没有这种元素，
+     输出-1；要求时间复杂度是O(n).
+     [10,9,100,100,101,100,110,109]
+     9,100,109
+     */
+    func findKNums(_ nums: [Int]) -> [Int] {
+        var p1 = 0, maxNum = nums[0]
+        var result = [Int]()
+        while p1 < nums.count {
+            maxNum = max(maxNum,nums[p1])
+            if nums[p1] < maxNum {
+                result.append(nums[p1])
+            }
+            p1 += 1
+        }
+        return result
+    }
+
+    findKNums([10,9,100,100,101,100,110,109])
         
         
     /**
@@ -1187,10 +1254,7 @@ class AlgorithmSwift: NSObject {
     
     /**
      26. 删除排序数组中的重复项 快慢指针
-     给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
-     不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
-     数组完成排序后，我们可以放置两个指针 ii 和 jj，其中 ii 是慢指针，而 jj 是快指针。只要 nums[i] = nums[j]nums[i]=nums[j]，我们就增加 jj 以跳过重复项。
-     当我们遇到 nums[j] \neq nums[i]nums[j] = nums[i] 时，跳过重复项的运行已经结束，因此我们必须把它（nums[j]nums[j]）的值复制到 nums[i + 1]nums[i+1]。然后递增 ii，接着我们将再次重复相同的过程，直到 jj 到达数组的末尾为止。
+
      */
     
     func removeDuplicates(_ nums: inout [Int]) -> Int {
@@ -1208,6 +1272,41 @@ class AlgorithmSwift: NSObject {
         return p1 + 1
     }
     
+    // 无序数组去 重复
+    func removeDup(_ nums: inout [Int]) -> [Int] {
+        let sortArr = NSOrderedSet.init(array: nums)
+        return  sortArr.objectEnumerator.allObjects
+    }
+    
+    /*
+     75. 颜色分类 三指针
+     给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+     */
+    func sortColors(_ nums: inout [Int]) {
+        var index = 0
+        var left = 0
+        var right = nums.count-1
+        while index <= right {
+            let value = nums[index]
+            if value == 0 {
+                let temp = nums[index]
+                nums[index] = nums[left]
+                nums[left] = temp
+                index = index + 1
+                left = left + 1
+                
+            }else if value == 1 {
+                index = index + 1
+            }else {
+                let temp = nums[index]
+                nums[index] = nums[right]
+                nums[right] = temp
+                right = right - 1
+            }
+        }
+    }
+
+
     /**
       33. 搜索旋转排序数组
       假设按照升序排序的数组在预先未知的某个点上进行了旋转。
