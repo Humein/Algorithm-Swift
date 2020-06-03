@@ -1,6 +1,6 @@
 import UIKit
 
-/**
+/*
  有一个整数的无序数组a[N],
  对于其中的元素a[i],
  如果其前面a[0]~a[i-1]中，
@@ -16,11 +16,17 @@ import UIKit
  9,100,109
  */
 
-print("")
 func findKNums(_ nums: [Int]) -> [Int] {
-    
-    return [1]
+    var p1 = 0, maxNum = nums[0]
+    var result = [Int]()
+    while p1 < nums.count {
+        maxNum = max(maxNum,nums[p1])
+        if nums[p1] < maxNum {
+            result.append(nums[p1])
+        }
+        p1 += 1
+    }
+    return result
 }
 
-
-findKNums([2])
+findKNums([10,9,100,100,101,100,120,110,109])

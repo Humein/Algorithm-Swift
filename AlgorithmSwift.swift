@@ -48,6 +48,16 @@ class AlgorithmSwift: NSObject {
 
 
     //MARK:- 二叉树 - 递归
+    /**
+     Q: 算法的时间复杂度是多少
+     A: O(n)
+
+     Q: 递归会有什么缺点
+     A: 数据规模过大时,容易造成栈溢出, 每一轮递归都要分配栈空间,做栈帧平衡
+
+     Q: 不用递归能否实现，复杂度能否降到O(1)
+     A: 可以使用我国古代著名数学家秦九韶先生推演的算法, 也就是等差数列通项公式,  return n*(n+1)/2;  还可以继续做一点小优化,  将 `/` 使用 `>> ` 运算,   return n*(n+1) >> 1;
+     */
     /// 1-100 相加
     func recursion100(_ n :Int) -> Int{
         if n == 1 {
@@ -79,6 +89,14 @@ class AlgorithmSwift: NSObject {
         }
         return m + recursion(m - step, step)
     }
+
+    /* 项目中有这么一个方法func findfile(dir: String suffix: String) -> [String] ，可以通过输入文件夹目录，和后缀检索出所需的文件。
+     他说子文件如果过多怎么办，如何优化。我有点懵，查找文件至少是要遍历一遍的，子文件过多，这个应该是没法优化的啊。中间卡了一段时间，后来他给了提示说是不是可以用block实现，将文件路径返回出去，由外部决定当前文件是否可用
+     */
+    //我的方案
+    //func findDir(_ dir: String) -> [String]
+    //block方案
+    func findDir(_ dir: String, block: ((String) -> Bool))
 
     
 
@@ -1008,6 +1026,9 @@ class AlgorithmSwift: NSObject {
      输出-1；要求时间复杂度是O(n).
      [10,9,100,100,101,100,110,109]
      9,100,109
+     
+     思路：
+     我先想到的是滑动窗口，有两个指针；后来发现用一个指针和一个最大值就可以了
      */
     func findKNums(_ nums: [Int]) -> [Int] {
         var p1 = 0, maxNum = nums[0]
@@ -1022,7 +1043,7 @@ class AlgorithmSwift: NSObject {
         return result
     }
 
-    findKNums([10,9,100,100,101,100,110,109])
+//    findKNums([10,9,100,100,101,100,110,109])
         
         
     /**
@@ -1369,6 +1390,8 @@ class AlgorithmSwift: NSObject {
      179. 最大数
      给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数。
      说明:给定一个Int型数组，用里面的元素组成一个最大数，因为数字可能非常大，用字符串输出
+     后来再去做这道题，其实这就是一个排序而已，只不过他的规则是按高位优先级更高的原则，而这一点跟字符串的比较保持一致，如果再加一些Swift的高阶函数，就可以写成：
+
      */
 
     func largestNumber(_ nums: [Int]) -> String {
@@ -1376,7 +1399,21 @@ class AlgorithmSwift: NSObject {
         if sorded[0].isEqual("0") { return "0" }
         return sorded.joined()
     }
-    
+    func largestNumbers(_ nums: [Int]) -> String {
+        var sorted = nums.map { (num) -> String in
+            return String(num)
+        }
+        sorted = sorted.sorted { (s1, s2) -> Bool in
+            return s1 + s2 > s2 + s1
+        }
+        if sorted.count > 0 {
+            if (sorted[0] as NSString).isEqual(to: "0") {
+                return "0"
+            }
+        }
+        return (sorted as NSArray).componentsJoined(by: "")
+    }
+
     
     /*
      88. 合并两个有序数组 ---  3个指针迭代
