@@ -92,13 +92,13 @@ class AlgorithmSwift: NSObject {
 
     /* 项目中有这么一个方法func findfile(dir: String suffix: String) -> [String] ，可以通过输入文件夹目录，和后缀检索出所需的文件。
      他说子文件如果过多怎么办，如何优化。我有点懵，查找文件至少是要遍历一遍的，子文件过多，这个应该是没法优化的啊。中间卡了一段时间，后来他给了提示说是不是可以用block实现，将文件路径返回出去，由外部决定当前文件是否可用
+     请设计一个递归搜索指定目录下指定类型文件的函数，要求写清返回值、函数名、参数列表。
      */
     //我的方案
     //func findDir(_ dir: String) -> [String]
     //block方案
     func findDir(_ dir: String, block: ((String) -> Bool))
 
-    
 
     /// 遍历子view
     func recursionSubView(_ view :UIView){
@@ -128,11 +128,10 @@ class AlgorithmSwift: NSObject {
         return root
     }
     /**
-    给定一个二叉树，返回它的 前序遍历。
+    给定一个二叉树，返回它的 先/前序遍历。
      前序遍历 DFS 递归
      根 -> 左 -> 右
     */
-    
     class Solution {
         var res: [Int] = []
         func preorderTraversal(_ root: TreeNode?) -> [Int] {
@@ -162,22 +161,6 @@ class AlgorithmSwift: NSObject {
         }
     }
 
-    func travelSubView(_ rootView: UIView){
-        if rootView.subviews.count == 0 {
-            return
-        }
-        var res = [UIView]()
-        var queue = [UIView]()
-        queue.append(rootView)
-        while let view = queue.popLast() {
-            res.append(view)
-            if view.subviews.count > 0 {
-                for item in view.subviews{
-                    queue.append(item)
-                }
-            }
-        }
-    }
         
     /**
      中序遍历
@@ -288,36 +271,27 @@ class AlgorithmSwift: NSObject {
     /**
      offer26：树的子结构  树t是否是树s的子树
      */
-    func isSubtree(_ s: TreeNode?, _ t: TreeNode?) -> Bool {
-        var result = false
-        if s != nil && t != nil {
-            if s == t {
-                result = doseTree1HavaeTree2(s, t)
+       func isSubStructure(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
+            if A == nil || B == nil {
+                return false
             }
-            if !result {
-                result = isSubtree(s?.left, t)
+
+            return  dfs(A,B) || isSubStructure(A?.left,B) || isSubStructure(A?.right, B)
+
+        }
+
+        func dfs(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
+            if B == nil {
+                return true
             }
-            if !result {
-                result = isSubtree(s?.right, t)
+            if A == nil || A!.val != B!.val {
+                return false
             }
+
+            return dfs(A?.left, B?.left) && dfs(A?.right, B?.right)
+
         }
-        return result
-    }
-    private func doseTree1HavaeTree2(_ root1: TreeNode?, _ root2: TreeNode?) -> Bool {
-        if root2 == nil {
-            return true
-        }
-        if root1 == nil {
-            return false
-        }
-        if root1 != root2 {
-            return false
-        }
-        return doseTree1HavaeTree2(root1?.left, root2?.left) &&
-            doseTree1HavaeTree2(root1?.right, root2?.right)
-    }
-    
-    
+
     /*
      offer28：对称的二叉树
      请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。
@@ -525,7 +499,7 @@ class AlgorithmSwift: NSObject {
         while fast != nil && fast?.next != nil {
             fast = fast?.next?.next
             slow = slow?.next
-            if slow?.val == fast?.val {
+            if slow === fast {
                 return true
             }
         }
@@ -1512,6 +1486,8 @@ class AlgorithmSwift: NSObject {
     /*
      手撕快排 https://www.jianshu.com/p/5a81ba81886d
      需要额外空间 比较好理解
+     时间 O (nlogn)
+     空间 O (n) 最差情况(倒序)时，需要n次递归调用。因此需要O(n)的栈空间。
      */
     func quickSort2(_ data: [Int]) -> [Int] {
         // 边界
@@ -1546,8 +1522,8 @@ class AlgorithmSwift: NSObject {
 
     /*
     冒泡排序 升序
-     O(n²) 时间
-     O(1)  空间
+     O(n²) 时间 最小时间复杂O（n)已经排序过
+     O(1)  空间 内部交换只需要一个变量，所以空间复杂度O(1)
      冒泡排序是一种稳定的排序
      */
     func bubbleSort(unsortedArray: inout [Int]){
