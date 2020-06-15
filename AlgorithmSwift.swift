@@ -1044,6 +1044,19 @@ class AlgorithmSwift: NSObject {
             
             return reverse == x
         }
+    
+    /**
+     回文算法（算法）判断一个字符串是不是对称的字符串，比如 abba 或者 aba 这样的就是对称的。
+     */
+    bool isPalindrome(char *s){
+      int len = strlen(s);
+      int i = 0;
+      int j = len-1;
+      while(i < j){
+        if(s[i] != s[j])return false;
+      }
+      retrun true;
+    }
         
 
         /**
