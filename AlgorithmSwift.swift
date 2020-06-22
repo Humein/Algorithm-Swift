@@ -752,13 +752,12 @@ class AlgorithmSwift: NSObject {
         }
     }
     
-
     
-    
-    /* 21 合并两个有序链表 递归
+    /* 21 合并两个有序链表
+     递归
      时间复杂度：O(n + m)。
      空间复杂度：O(n + m)。
-     首先同时遍历两个链表，比较两个链表当前的值，小的值就作为新链表的元素，然后小的值的链表就走到下一个元素，大的值的链表还是当前元素。接着继续遍历，重复上述步骤，直到链表遍历完毕。这样就可以得到新的有序链表了。 需要注意几个地方：
+  首先同时遍历两个链表，比较两个链表当前的值，小的值就作为新链表的元素，然后小的值的链表就走到下一个元素，大的值的链表还是当前元素。接着继续遍历，重复上述步骤，直到链表遍历完毕。这样就可以得到新的有序链表了。 需要注意几个地方：
      
      - 这个题目，最好是创建一个头结点来作为辅助，这样就不用判断新链表的头结点是l1的头结点还是l2的头结点了。
      - 遍历到最后，一般会有一个链表是先遍历完毕的。接着将另外一个链表拼接起来就行了，不用继续再一个个遍历拼接。
@@ -821,6 +820,56 @@ class AlgorithmSwift: NSObject {
             return head.next
     }
 
+    /**
+     445. 两数相加 II 两个链表相加
+     
+     */
+    func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        var stack1 = [ListNode]()
+        var stack2 = [ListNode]()
+        
+        var t1 = l1
+        var t2 = l2
+        
+        while t1 != nil || t2 != nil {
+            if let tmpT1 = t1 {
+                stack1.append(tmpT1)
+                t1 = t1?.next
+            }
+            
+            if let tmpT2 = t2 {
+                stack2.append(tmpT2)
+                t2 = t2?.next
+            }
+        }
+        
+        var newHead: ListNode?
+        var k = 0
+        while !stack1.isEmpty || !stack2.isEmpty || k != 0 {
+            var sum = k
+            k = 0
+            if !stack1.isEmpty {
+                sum += stack1.removeLast().val
+            }
+            
+            if !stack2.isEmpty {
+                sum += stack2.removeLast().val
+            }
+            
+            if sum > 9 {
+                sum -= 10
+                k = 1
+            }
+            let node = ListNode(sum)
+            if newHead == nil {
+                newHead = node
+            } else {
+                node.next = newHead
+                newHead = node
+            }
+        }
+        return newHead
+    }
     
     
 
@@ -848,6 +897,23 @@ class AlgorithmSwift: NSObject {
     }
 
 
+    /**
+     面试题05. 替换空格
+     */
+    func replaceSpace(_ s: String) -> String {
+        var newString = ""
+        for char in s {
+            if char == " " {
+                newString += "%20"
+            } else {
+                newString += String(char)
+            }
+        }
+        return newString
+    }
+
+    
+    
     /**
      // offer58（一）：翻转单词顺序
      // 题目：输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。
@@ -1048,16 +1114,16 @@ class AlgorithmSwift: NSObject {
     /**
      回文算法（算法）判断一个字符串是不是对称的字符串，比如 abba 或者 aba 这样的就是对称的。
      */
-    bool isPalindrome(char *s){
-      int len = strlen(s);
-      int i = 0;
-      int j = len-1;
-      while(i < j){
-        if(s[i] != s[j])return false;
-      }
-      retrun true;
-    }
-        
+//    bool isPalindrome(char *s){
+//      int len = strlen(s);
+//      int i = 0;
+//      int j = len-1;
+//      while(i < j){
+//        if(s[i] != s[j])return false;
+//      }
+//      retrun true;
+//    }
+//
 
         /**
          7. 整数反转
@@ -1116,6 +1182,27 @@ class AlgorithmSwift: NSObject {
          }
          return -1
      }
+    
+    /**
+     剑指 Offer 53 - I. 在排序数组中查找数字 I
+     统计一个数字在排序数组中出现的次数。
+
+     */
+    func binarySearchNums(_ nums: [Int], _ target: Int) -> Int {
+        return searchNum(nums,target) -  searchNum(nums,target - 1)
+    }
+    private func searchNum(_ nums: [Int], _ target: Int) -> Int {
+        var p1 = 0, p2 = nums.count - 1
+        while p1 <= p2 {
+            let mid = (p2 - p1) / 2 + p1
+            if nums[mid] <= target {
+                p1 = mid + 1
+            }else{
+                p2 = mid - 1
+            }
+        }
+        return p1
+    }
      
      /*
        盛最多水的容器 双指针
@@ -1609,6 +1696,9 @@ class AlgorithmSwift: NSObject {
 
     // 数组 动态规划
     func dyclimbStairs(_ n: Int) -> Int {
+        guard n > 0 else {
+            return 0
+        }
         // 边界值
         if n == 1 || n == 2{
             return n
@@ -1627,7 +1717,7 @@ class AlgorithmSwift: NSObject {
             dp.append(dp[i-1] + dp[i-2])
         }
         print(dp)
-        return dp[n-1]
+        return dp[n]
     }
 
 
@@ -1668,7 +1758,7 @@ class AlgorithmSwift: NSObject {
             }
             
             //将当前子序列和现有的子序列最大进行比较
-            // 状态转移方程
+            // 状态转移方程 max(curMaxSub.last!, sum)
             curMaxSub.append(max(curMaxSub.last!, sum))
         }
         return curMaxSub.last!
@@ -1688,11 +1778,9 @@ class AlgorithmSwift: NSObject {
       3 状态转移方程(2个)    第二个方程的参数是第一个方程的解
      */
 
-    func dynamicMaxProfit(_ prices :[Int]) -> Int{
+    func dynamicMaxProfit(_ prices: [Int]) -> Int{
         // 边界
-        if prices.count <= 1 {
-            return 0
-        }
+
         // 两个最小子结构
         var min_b = prices[0], max_p = 0//这个是利润 最小就是0
         
@@ -1707,6 +1795,10 @@ class AlgorithmSwift: NSObject {
         }
         
         return max_p
+    }
+    
+    func maxProfit(_ prices: [Int]) -> Int {
+        
     }
 
 
@@ -1857,6 +1949,57 @@ class AlgorithmSwift: NSObject {
     }
     
     
+    /**
+     可以使用动态规划降低时间复杂度。我们用 dp(i, j)dp(i,j) 表示以 (i, j)(i,j) 为右下角，且只包含 11 的正方形的边长最大值。如果我们能计算出所有 dp(i, j)dp(i,j) 的值，那么其中的最大值即为矩阵中只包含 11 的正方形的边长最大值，其平方即为最大正方形的面积。
+
+     那么如何计算 dpdp 中的每个元素值呢？对于每个位置 (i, j)(i,j)，检查在矩阵中该位置的值：
+
+     如果该位置的值是 00，则 dp(i, j) = 0dp(i,j)=0，因为当前位置不可能在由 11 组成的正方形中；
+
+     如果该位置的值是 11，则 dp(i, j)dp(i,j) 的值由其上方、左方和左上方的三个相邻位置的 dpdp 值决定。具体而言，当前位置的元素值等于三个相邻位置的元素中的最小值加 11，状态转移方程如下：
+
+     dp(i, j)=min(dp(i−1, j), dp(i−1, j−1), dp(i, j−1))+1
+     dp(i,j)=min(dp(i−1,j),dp(i−1,j−1),dp(i,j−1))+1
+
+     如果读者对这个状态转移方程感到不解，可以参考 1277. 统计全为 1 的正方形子矩阵的官方题解，其中给出了详细的证明。
+
+     此外，还需要考虑边界条件。如果 ii 和 jj 中至少有一个为 00，则以位置 (i, j)(i,j) 为右下角的最大正方形的边长只能是 11，因此 dp(i, j) = 1dp(i,j)=1。
+
+     空间复杂度：O(mn)O(mn)
+     时间复杂度：O(mn)O(mn)
+     
+     221. 最大正方形
+     在一个由 0 和 1 组成的二维矩阵内，找到只包含 1 的最大正方形，并返回其面积。
+     */
+        func maximalSquare(_ matrix: [[Character]]) -> Int {
+                var result: Int = 0
+                guard matrix.count > 0 else {
+                    return result
+                }
+                let rowNum = matrix.count
+                let colNum = matrix[0].count
+                var dp = [[Int]](repeating: [Int].init(repeating: 0, count: colNum), count: rowNum)
+                for i in 0..<rowNum {
+                    for j in 0..<colNum {
+                        if(matrix[i][j] == "1") {
+                            if(i == 0 || j == 0) {
+                                dp[i][j] = 1
+                            } else {
+                                dp[i][j] = min(dp[i-1][j-1], dp[i][j-1], dp[i-1][j])+1
+                            }
+                        }
+                    }
+                }
+                
+                for item in dp {
+                    result = max(result, item.max() ?? 0)
+                }
+                return result * result
+
+        }
+
+    
+    
     /*
      厉害了我的杯
      有一种玻璃杯质量确定但未知，需要检测。
@@ -1944,6 +2087,8 @@ class AlgorithmSwift: NSObject {
            let rightIndex = s.index(s.startIndex, offsetBy: right);
            return String(s[leftIndex...rightIndex]);
     }
+    
+    
     
     //MARK:- 贪心算法
     /*
