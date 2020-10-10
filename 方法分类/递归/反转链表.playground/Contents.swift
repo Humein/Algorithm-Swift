@@ -29,9 +29,10 @@ func reverse(_ head: ListNode?) -> ListNode?{
     if head == nil || head?.next == nil {
         return head
     }
-    // 获取链表尾部为新head
+    // 直接获取链表尾部做为新head
     // 入站 获取栈顶元素 head?.next
     // 不放在入站时候进行逻辑处理  因为会改变head?.next
+    print("入战 \(head?.val)")
     let newHead = reverse(head?.next)
     
     
@@ -72,3 +73,32 @@ func reverseNode(head: ListNode?) -> ListNode? {
     return newHead
 }
 print(printList(reverseNode(head: m)!))
+
+
+
+
+// 2020.10.9
+class NodeLists {
+    var value: Int?
+    var next: NodeLists?
+    init(val: Int?, next: NodeLists?) {
+        self.value = val
+        self.next = next
+    }
+}
+
+
+func reverseList(n: NodeLists?) -> NodeLists?{
+    // 边界递归结束条件
+    if n == nil || n?.next == nil {
+        return n
+    }
+    // 在这里触发递归 进行逻辑处理
+    let newHead = reverseList(n: n?.next)
+    // 出战
+    n?.next?.next = n
+    n?.next = nil
+    return newHead
+}
+
+

@@ -38,3 +38,10 @@ recursionNM(2,6)
 // public int addtion02(int n) {
 //     return n * (1 + n) / 2;
 // }
+
+func recSum(_ n: Int) -> Int {
+    if n == 1 {
+        return 1
+    }
+    return recSum(n - 1) + n
+}
