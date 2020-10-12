@@ -87,18 +87,15 @@ class NodeLists {
     }
 }
 
-
-func reverseList(n: NodeLists?) -> NodeLists?{
-    // 边界递归结束条件
-    if n == nil || n?.next == nil {
-        return n
+// 2020.10.10
+func reverseList(_ node: NodeLists?) -> NodeLists?{
+    if node == nil || node?.next == nil {
+        return node
     }
-    // 在这里触发递归 进行逻辑处理
-    let newHead = reverseList(n: n?.next)
-    // 出战
-    n?.next?.next = n
-    n?.next = nil
+    
+    let newHead = reverseList(node?.next)
+    node?.next?.next = node
+    node?.next = nil
+    
     return newHead
 }
-
-

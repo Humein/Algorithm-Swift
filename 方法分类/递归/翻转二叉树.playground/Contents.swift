@@ -35,3 +35,29 @@ func invertTree(_ root: TreeNode?) -> TreeNode? {
     root?.right = leftNode
     return root
 }
+
+
+// 2020.10.10
+class NodeTrees {
+    var perent: NodeTrees?
+    var val: Int?
+    var left: NodeTrees?
+    var right: NodeTrees?
+    init (l: NodeTrees?,r: NodeTrees?,v: Int?){
+        self.left = l
+        self.right = r
+        self.val = v
+    }
+}
+
+func reverseTrees(_ t: NodeTrees?) -> NodeTrees? {
+    if t == nil {
+        return t
+    }
+    let l = reverseTrees(t?.left)
+    let r = reverseTrees(t?.right)
+    t?.left = r
+    t?.right = l
+    
+    return t
+}
