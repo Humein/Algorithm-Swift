@@ -66,22 +66,29 @@ func findKNode(_ head: ListNode?,k: Int) -> ListNode?{
  当删除了倒数第二个节点后，链表变为 1->2->3->5.
  */
 func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode?{
+    // 引入虚拟头节点 防止删除的是头节点
     let prev: ListNode? = ListNode(val: 0, next: nil)
     prev?.next = head
+    
+    // 定义双指针
     var low = prev
     var high = prev
     
+    // 快指针先走k步 因为有虚拟节点要从0开始
     for _ in 0..<n {
         high = high?.next
     }
 
+    // 然后同时走
     while high?.next != nil {
         low = low?.next
         high = high?.next
     }
 
+    // 通过慢指针进行删除操作
     low?.next = low?.next?.next
     
+    // 返回虚拟头节点的next
     return prev?.next
 
 }
