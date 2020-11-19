@@ -1855,9 +1855,6 @@ func findKNode(_ head: LinkNode?,k: Int) -> LinkNode?{
         p1 = p1.next!
         p2 = p2?.next
     }
-    //    19. 删除链表的倒数第N个节点
-    //    p1!.next = p1!.next!.next
-    //    return head.next
     
     return p1
 }
