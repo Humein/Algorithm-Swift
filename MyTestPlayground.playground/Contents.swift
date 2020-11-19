@@ -1840,8 +1840,8 @@ func findKNode(_ head: LinkNode?,k: Int) -> LinkNode?{
     // p2 fast
     var p1 :LinkNode = head!, p2 :LinkNode? = head
     
-    //快指针先走k步
-    for _ in 0..<k{
+    //快指针先走k步 ，为什么1开始？开始index 是 1
+    for _ in 1..<k{
         if p2?.next != nil {
             p2 = p2?.next
         }else{
@@ -2080,6 +2080,7 @@ class Solution1234 {
     _ = preorderTraversal(root.right)
     return res
 }
+}
     
     // 遍历 栈
     class Solution111 {
@@ -2213,7 +2214,7 @@ func largestNumber(_ nums: [Int]) -> String {
  1. 将一个整数逆序，  输入：   48432，   输出：   23484 ，要求不能使用字符串、向量、容器等做辅助处理。
 
  */
-func reverseString(_ s: inout [Character]){
+func reversesString(_ s: inout [Character]){
     //记得 边界1
     if  s.count < 2 {
         return
@@ -2230,5 +2231,3 @@ func reverseString(_ s: inout [Character]){
         p2 -= 1
     }
 }
-
-
