@@ -92,3 +92,65 @@ func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode?{
     return prev?.next
 
 }
+
+
+//MARK: 面试题 02.02. 返回倒数第 k 个节点
+/**
+ 实现一种算法，找出单向链表中倒数第 k 个节点。返回该节点的值。
+
+ 注意：本题相对原题稍作改动
+ */
+class Solution {
+    func kthToLast(_ head: ListNode?, _ k: Int) -> Int {
+        if head == nil {
+            return 0
+        }
+
+        var i :ListNode! = head, j :ListNode! = head
+        for _ in 1..<k {
+            j = j.next
+        }
+        while j.next != nil {
+            i = i.next
+            j = j.next
+        }
+        return i.val
+    }
+}
+
+
+//MARK: 234. 回文链表
+
+/**
+ 请判断一个链表是否为回文链表。
+
+ 示例 1:
+
+ 输入: 1->2
+ 输出: false
+ 示例 2:
+
+ 输入: 1->2->2->1
+ 输出: true
+ 
+ 进阶：
+ 你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
+ */
+func isPalindrome(_ head: ListNode?) -> Bool {
+    var nodeArray :Array = [ListNode]()
+    var prev :ListNode? = ListNode.init(val: 0, next: nil)
+    prev?.next = head
+    while prev?.next != nil {
+        nodeArray.append((prev?.next)!)
+        prev = prev?.next
+    }
+    var i :Int = 0, j :Int = nodeArray.count - 1
+    while i < j {
+        if nodeArray[i].val != nodeArray[j].val {
+            return false
+        }
+        i = i + 1
+        j = j - 1
+    }
+    return true
+}

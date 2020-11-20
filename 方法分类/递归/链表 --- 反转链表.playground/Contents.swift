@@ -20,9 +20,16 @@ func printList(_ node: ListNode) -> [Int]{
 }
 
 
-/// 206. 反转链表  递归还是在借助函数调用栈的思想<出站/入站 时间去处理逻辑>，其实本质上也是一个栈。
+//MARK: 206. 反转链表  递归还是在借助函数调用栈的思想<出站/入站 时间去处理逻辑>，其实本质上也是一个栈。
+
 /*
  等价条件中，一定是范围不断在缩小，对于链表来说，就是链表的节点个数不断在变小
+ 
+ 递归：复杂度分析
+
+ 时间复杂度：O(n)，假设 n 是列表的长度，那么时间复杂度为 O(n)。
+ 空间复杂度：O(n)，由于使用递归，将会使用隐式栈空间。递归深度可能会达到 n 层
+ 
  */
 
 func reverse(_ head: ListNode?) -> ListNode?{
@@ -49,53 +56,32 @@ func reverse(_ head: ListNode?) -> ListNode?{
      */
     head?.next?.next = head
     head?.next = nil
-    print("出战 \(head?.val)")
+    print("出战 \(head?.val ?? 0)")
     return newHead
 }
 let node5 = ListNode(val: 5, next: nil)
 let node4 = ListNode(val: 4, next: node5)
 let node3 = ListNode(val: 3, next: node4)
 let m = ListNode(val: 2, next: node3)
-print("测试 \(m.next?.next?.val)")
+print("测试 \(m.next?.next?.val ?? 0)")
 print(printList(m))
 print(printList(reverse(m)!))
 
 
-
-
-func reverseNode(head: ListNode?) -> ListNode? {
-    if head == nil || head?.next == nil {
-        return head
+/**
+ 迭代: 复杂度分析
+ 
+ 时间复杂度：O(n)，假设 n 是列表的长度，时间复杂度是 O(n)。
+ 空间复杂度：O(1)。
+ */
+func reverseList(_ head: ListNode?) -> ListNode? {
+    var prev :ListNode? = nil
+    var curr :ListNode? = head
+    while curr != nil {
+        let nextTemp = curr?.next
+        curr?.next = prev
+        prev = curr
+        curr = nextTemp
     }
-    let newHead = reverseNode(head: head?.next)
-    head?.next?.next = head
-    head?.next = nil
-    return newHead
-}
-print(printList(reverseNode(head: m)!))
-
-
-
-
-// 2020.10.9
-class NodeLists {
-    var value: Int?
-    var next: NodeLists?
-    init(val: Int?, next: NodeLists?) {
-        self.value = val
-        self.next = next
-    }
-}
-
-// 2020.10.10
-func reverseList(_ node: NodeLists?) -> NodeLists?{
-    if node == nil || node?.next == nil {
-        return node
-    }
-    
-    let newHead = reverseList(node?.next)
-    node?.next?.next = node
-    node?.next = nil
-    
-    return newHead
+    return prev
 }
