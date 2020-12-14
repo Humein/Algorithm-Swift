@@ -47,6 +47,7 @@ class Solution {
         if root == nil {
             return []
         }
+        // 中序:  root: 在中间
         _ = inorderTraversal(root?.left)
         res.append(root!.val)
         _ = inorderTraversal(root?.right)

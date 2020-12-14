@@ -34,8 +34,8 @@ class TreeNode {
  */
 
 
-/*
- 递归
+/* 递归
+ 
  思路与算法
 
  首先我们需要了解什么是二叉树的前序遍历：按照访问根节点——左子树——右子树的方式遍历这棵树，而在访问左子树或者右子树的时候，我们按照同样的方式遍历，直到遍历完整棵树。因此整个遍历过程天然具有递归的性质，我们可以直接用递归函数来模拟这一过程。
@@ -44,35 +44,33 @@ class TreeNode {
  复杂度分析
 
  时间复杂度：O(n)，其中 n 是二叉树的节点数。每一个节点恰好被遍历一次。
-
  空间复杂度：O(n)，为递归过程中栈的开销，平均情况下为 O(logn)，最坏情况下树呈现链状，为 O(n)。
  */
 
-class SolutionRecursion {
-    var res: [Int] = []
-    func preorderTraversal(_ root: TreeNode?) -> [Int] {
-    guard let root = root else { return [] }
-    res.append(root.val)
-    _ = preorderTraversal(root.left)
-    _ = preorderTraversal(root.right)
-    return res
-    }
-    
-    
-    var res1 = [Int]()
-    func preorderTrack(_ root: TreeNode?) -> [Int] {
-        
+//class SolutionRecursion {
+//    var res: [Int] = []
+//    func preorderTraversal(_ root: TreeNode?) -> [Int] {
+//    guard let root = root else { return [] }
+//    res.append(root.val)
+//    // 自顶向下的递归
+//    _ = preorderTraversal(root.left)
+//    _ = preorderTraversal(root.right)
+//    return res
+//    }
+//}
+
+class SloutionRec1 {
+    var res = [Int]()
+    func preOrderTraverse(_ root: TreeNode?) -> [Int] {
         guard let root = root else {
             return []
         }
-        
-        res1.append(root.val)
-        // 自顶向下的递归
-        _ = preorderTrack(root.left)
-        _ = preorderTrack(root.right)
-        return res1
+        // 前序遍历 前： 起点是root
+        res.append(root.val)
+        _ = preOrderTraverse(root.left)
+        _ = preOrderTraverse(root.right)
+        return res
     }
-    
 }
 
 
@@ -82,9 +80,9 @@ class SolutionRecursion {
  
  复杂度分析
 
- 时间复杂度：O(n)O(n)，其中 nn 是二叉树的节点数。每一个节点恰好被遍历一次。
+ 时间复杂度：O(n)，其中 n 是二叉树的节点数。每一个节点恰好被遍历一次。
 
- 空间复杂度：O(n)O(n)，为迭代过程中显式栈的开销，平均情况下为 O(\log n)O(logn)，最坏情况下树呈现链状，为 O(n)O(n)。
+ 空间复杂度：O(n)，为迭代过程中显式栈的开销，平均情况下为 O(log n)，最坏情况下树呈现链状，为 O(n)。
 
  */
 class SolutionStack {
@@ -102,6 +100,34 @@ class SolutionStack {
     return res
     }
 }
+
+class SolutionStack1 {
+    func preOrderTraversal(root: TreeNode?) -> [Int] {
+        guard let root = root else {
+            return []
+        }
+        var stack = [TreeNode]()
+        var res = [Int]()
+        // 栈加入处理的节点
+        stack.append(root)
+        // 栈不为空
+        while let node = stack.popLast() {
+            res.append(node.val)
+            // 根据Stack特性 先入后出: 先push右节点
+            if let right = node.right {
+                stack.append(right)
+            }
+            if let left = node.left {
+                stack.append(left)
+            }
+        }
+        return res
+    }
+}
+
+
+
+
 
 func travelSubView(_ rootView: UIView){
     if rootView.subviews.count == 0 {
