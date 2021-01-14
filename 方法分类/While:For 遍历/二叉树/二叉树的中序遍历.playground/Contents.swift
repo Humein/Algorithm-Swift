@@ -26,21 +26,17 @@ class TreeNode {
  输出: [1,3,2]
  进阶: 递归算法很简单，你可以通过迭代算法完成吗？
 
- 来源：力扣（LeetCode）
- 链接：https://leetcode-cn.com/problems/binary-tree-preorder-traversal
- 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
 /**
- 中序遍历
+ 中序遍历 递归
 左子树-> 根结点 -> 右子树
  
- 后序遍历：左子树 ---> 右子树 ---> 根结点
-
+ 时间复杂度：O(n)，其中 nn 为二叉树节点的个数。二叉树的遍历中每个节点会被访问一次且只会被访问一次。
+ 空间复杂度：O(n)。空间复杂度取决于递归的栈深度，而栈深度在二叉树为一条链的情况下会达到 O(n) 的级别。
 
  */
 
-// 递归
 class Solution {
     var res = [Int]()
     func inorderTraversal(_ root: TreeNode?) -> [Int] {
@@ -48,6 +44,7 @@ class Solution {
             return []
         }
         // 中序:  root: 在中间
+        // 中序遍历 中-起点是left
         _ = inorderTraversal(root?.left)
         res.append(root!.val)
         _ = inorderTraversal(root?.right)
@@ -56,13 +53,19 @@ class Solution {
     }
 }
 
-// 迭代 栈
+/* 迭代 栈
+ 方法一的递归函数我们也可以用迭代的方式实现，两种方式是等价的，区别在于递归的时候隐式地维护了一个栈，而我们在迭代的时候需要显式地将这个栈模拟出来
+ 
+ 时间复杂度：O(n)，其中 n 为二叉树节点的个数。二叉树的遍历中每个节点会被访问一次且只会被访问一次。
+ 空间复杂度：O(n)。空间复杂度取决于栈深度，而栈深度在二叉树为一条链的情况下会达到 O(n) 的级别
+
+*/
 class Solutions {
     func inorderTraversal(_ root: TreeNode?) -> [Int] {
         var stack: [TreeNode] = []
         var result: [Int] = []
         var node: TreeNode? = root
-        
+        // 节点或栈 为空
         while node != nil || !stack.isEmpty {
             while node != nil {
                 stack.append(node!)

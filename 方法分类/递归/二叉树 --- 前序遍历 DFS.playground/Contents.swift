@@ -65,7 +65,7 @@ class SloutionRec1 {
         guard let root = root else {
             return []
         }
-        // 前序遍历 前： 起点是root
+        // 前序遍历 前-起点是root
         res.append(root.val)
         _ = preOrderTraverse(root.left)
         _ = preOrderTraverse(root.right)
