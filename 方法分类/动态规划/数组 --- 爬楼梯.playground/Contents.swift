@@ -9,10 +9,13 @@ import UIKit
  只需要初始化好退出递归的条件就算写完了。
  
  动态规划  <自下而上分解成>
+  1.由已存在的数据去推导后续数据。
+  2.一般用数组存储已计算过的数据。
+ 
  */
 
 
-// 递归法
+// 递归法 会超时
 func climbStairs(_ n: Int) -> Int{
     if n == 0 || n == 1 || n == 2{
         return n
@@ -20,6 +23,7 @@ func climbStairs(_ n: Int) -> Int{
     
     return climbStairs(n-1) + climbStairs(n-2)
 }
+
 // 动态规划法
 func climbStairsDp(_ n: Int) -> Int{
     if n == 0 || n == 1 || n == 2{
@@ -33,4 +37,4 @@ func climbStairsDp(_ n: Int) -> Int{
     return dpArr[n]
 }
 
-climbStairsDp(2)
+climbStairsDp(43)
