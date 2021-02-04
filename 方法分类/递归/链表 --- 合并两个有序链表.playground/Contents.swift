@@ -23,6 +23,7 @@ class ListNode {
 
  */
 func mergeTwoList(_ m: ListNode?, _ n: ListNode?) -> ListNode?{
+    // 递归边界
     if m == nil {
         print(n!.val)
         return n
@@ -73,4 +74,21 @@ func mergeTwo(m: ListNode?, n: ListNode?) -> ListNode?{
 
 
 // 2020.10.10
-
+// 2020.2.4
+func mergeTwo2(_ m: ListNode?, _ n: ListNode?) -> ListNode?{
+    // 递归边界
+    if m == nil {
+        return n
+    }
+    if n == nil {
+        return m
+    }
+    // 进行递归
+    if m!.val < n!.val {
+        m?.next = mergeTwo2(m?.next, n)
+        return m
+    }else{
+        n?.next = mergeTwo2(m, n?.next)
+        return n
+    }
+}
