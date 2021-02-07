@@ -35,28 +35,44 @@ class TreeNode {
  1. 定义递归函数
  2. 边界问题 递归结束条件
  3. 寻找等价关系 node1?.left, node2?.right
+ 
+ 终止条件：
+  - 当 L 和 R 同时越过叶节点： 此树从顶至底的节点都对称，因此返回 true ；
+  - 当 L 或 R 中只有一个越过叶节点： 此树不对称，因此返回 false ；
+  - 当节点 L 值 != 节点 R 值: 此树不对称，因此返回 false ；
+ 
+ 递推工作：
+ 判断两节点 L.left 和 R.right 是否对称，即 recur(L.left, R.right) ；
+ 判断两节点 L.right 和 R.left 是否对称，即 recur(L.right, R.left) ；
+ 
+ 返回值：
+ 两对节点都对称时，才是对称树，因此用与逻辑符 && 连接。
+
  */
+
 func isSymmetric(_ root: TreeNode?) -> Bool {
     
-    return isSymmetrics(root, root)
+    return root == nil ? true : isSymmetrics(root?.left, root?.right)
 }
 
 //  1
 func isSymmetrics(_ node1: TreeNode?,_ node2: TreeNode?)-> Bool {
     // 2
-    if node1 == nil || node2 == nil{
-        return false
-    }
-    
+    // 必须第一个判断
     if node1 == nil && node2 == nil{
         return true
     }
     
+    if node1 == nil || node2 == nil{
+        return false
+    }
+    
+    // 不能判定相等的条件；只需要判断不等直到tree遍历完成就行
     if node1?.val != node2?.val {
         return false
     }
     
-    // 3   入站 这些逻辑都是在入站操作中处理了
+    // 3   入站 这些逻辑都是在入站操作中处理了； 遍历并判断左右tree
     return isSymmetrics(node1?.left, node2?.right) && isSymmetrics(node1?.right, node2?.left)
     
 }
@@ -64,11 +80,11 @@ func isSymmetrics(_ node1: TreeNode?,_ node2: TreeNode?)-> Bool {
 // 2020.10.12
 /// 引入两个入参来分解 左右树
 func symmetryTrees(_ node1: TreeNode?,_ node2: TreeNode?) -> Bool {
-    if node1 == nil || node2 == nil{
-        return false
-    }
     if node1 == nil && node2 == nil {
         return true
+    }
+    if node1 == nil || node2 == nil{
+        return false
     }
     /// 不能判定相等的条件；只需要判断不等直到tree遍历完成就行
     if node1?.val != node2?.val {

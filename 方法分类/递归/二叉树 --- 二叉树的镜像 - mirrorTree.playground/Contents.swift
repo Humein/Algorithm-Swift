@@ -41,9 +41,9 @@ func mirrorTree(_ root: TreeNode?) -> TreeNode? {
         return root
     }
     // 只入站处理 多了一个临时存储
-    let temp = root?.left
+    let templ = root?.left
     root?.left = mirrorTree(root?.right)
-    root?.right = mirrorTree(temp)
+    root?.right = mirrorTree(templ)
     return root
 }
 
