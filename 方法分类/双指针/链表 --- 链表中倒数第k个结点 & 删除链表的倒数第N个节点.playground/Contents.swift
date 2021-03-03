@@ -25,7 +25,9 @@ class ListNode {
 
  */
 
+// 2021.2.24
 func findKNode(_ head: ListNode?,k: Int) -> ListNode?{
+    // 边界
     if k <= 0 {
         return nil
     }
@@ -34,7 +36,7 @@ func findKNode(_ head: ListNode?,k: Int) -> ListNode?{
         return head
     }
     // p2 fast
-    var p1 :ListNode = head!, p2 :ListNode? = head
+    var p1 :ListNode? = head, p2 :ListNode? = head
     
     //快指针先走k步 ，为什么1开始？开始index 是 1
     for _ in 1..<k{
@@ -48,7 +50,7 @@ func findKNode(_ head: ListNode?,k: Int) -> ListNode?{
     
     //快慢指针同时往后遍历
     while p2?.next != nil {
-        p1 = p1.next!
+        p1 = p1?.next!
         p2 = p2?.next
     }
     return p1

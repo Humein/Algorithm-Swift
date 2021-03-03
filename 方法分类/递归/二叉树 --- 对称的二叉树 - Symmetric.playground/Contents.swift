@@ -78,6 +78,8 @@ func isSymmetrics(_ node1: TreeNode?,_ node2: TreeNode?)-> Bool {
 }
 
 // 2020.10.12
+// 2021.2.23 先判都没有有节点，后判其中一个没有节点，最后判每个节点的对应值。然后递归返回左右节点。
+
 /// 引入两个入参来分解 左右树
 func symmetryTrees(_ node1: TreeNode?,_ node2: TreeNode?) -> Bool {
     if node1 == nil && node2 == nil {

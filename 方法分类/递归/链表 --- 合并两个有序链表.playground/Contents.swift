@@ -75,6 +75,7 @@ func mergeTwo(m: ListNode?, n: ListNode?) -> ListNode?{
 
 // 2020.10.10
 // 2020.2.4
+// 2020.2.22  不能直接对链表进行操作，因为是let对象，但可以对next节点进行操作。     
 func mergeTwo2(_ m: ListNode?, _ n: ListNode?) -> ListNode?{
     // 递归边界
     if m == nil {

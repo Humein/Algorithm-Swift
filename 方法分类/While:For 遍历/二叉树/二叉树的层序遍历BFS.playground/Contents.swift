@@ -63,6 +63,7 @@ func levelOrder(_ root: TreeNode?) -> [[Int]] {
              if let rn = node.right { queue.append(rn) }
          }
          result.insert(layerVals, at: 0)
+//        result.append(layerVals)
      }
      return result
  }

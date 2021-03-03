@@ -32,6 +32,8 @@ func printList(_ node: ListNode) -> [Int]{
  
  */
 
+// 2021.2.24  只需要把节点 2(head?.next)的 next 指向 1(head)，然后把 1(head) 的 next 指向 nil
+
 func reverse(_ head: ListNode?) -> ListNode?{
     if head == nil || head?.next == nil {
         return head
@@ -39,7 +41,7 @@ func reverse(_ head: ListNode?) -> ListNode?{
     // 直接获取链表尾部做为新head
     // 入站 获取栈顶元素 head?.next
     // 不放在入站时候进行逻辑处理  因为会改变head?.next
-    print("入战 \(head?.val)")
+    print("入战 \(head?.val ?? 0)")
     let newHead = reverse(head?.next)
     
     
