@@ -6,6 +6,10 @@
 
 [动态规划及面试，学完这一篇，你就入门了：Dynamic Programming, 动态规划，经典题目](https://zhuanlan.zhihu.com/p/89391817)
 
+##### [labuladong f**k](https://github.com/labuladong/fucking-algorithm)
+
+
+
 >   **一般对所要求解的问题的时间复杂度要求比较高的，可以优先考虑如下几种算法。**
 >
 >   **①分治法**
