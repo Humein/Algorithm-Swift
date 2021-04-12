@@ -21,7 +21,8 @@ class TreeNode {
  若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值；
  若任意节点的右子树不空，则右子树上所有节点的值均大于或等于它的根节点的值；
  任意节点的左、右子树也分别为二叉查找树；
- 二叉查找树相比于其他数据结构的优势在于查找、插入的时间复杂度较低。为{\displaystyle O(\log n)}O(\log n)。二叉查找树是基础性数据结构，用于构建更为抽象的数据结构，如集合、多重集、关联数组等。
+ 二叉查找树相比于其他数据结构的优势在于查找、插入的时间复杂度较低。为
+ O(logn)。二叉查找树是基础性数据结构，用于构建更为抽象的数据结构，如集合、多重集、关联数组等。
  
  - 查找问题
  静态查找 不需要进行插入删除操作，使用二分查找即可
@@ -34,8 +35,6 @@ class TreeNode {
  例如，给定如下二叉搜索树:  root = [6,2,8,0,4,7,9,null,null,3,5]
 
 
-
-  
 
  示例 1:
 
@@ -57,6 +56,13 @@ class TreeNode {
 
 
 //递归 利用二叉搜索树的性质。
+/*
+ 递推工作：
+ 当 p, q 都在 root 的 右子树 中，则开启递归 root.right并返回；
+ 否则，当 p, q都在 root 的 左子树 中，则开启递归 root.left 并返回；
+ 返回值： 最近公共祖先 root 。
+ */
+
 func findRecentRoot(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
     if p == nil || q == nil || root == nil {
         return nil
@@ -78,6 +84,14 @@ func findRecentRoot(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNo
 }
 
 // 迭代,利用二叉搜索树的特性,比较大小.
+
+/*
+ 循环搜索： 当节点 rootroot 为空时跳出；
+ 当 p, qp,q 都在 rootroot 的 右子树 中，则遍历至 root.rightroot.right ；
+ 否则，当 p, qp,q 都在 rootroot 的 左子树 中，则遍历至 root.leftroot.left ；
+ 否则，说明找到了 最近公共祖先 ，跳出。
+ */
+
 func findRecentRootw(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
     guard let p = p, let q = q else { return nil }
     
