@@ -23,6 +23,7 @@ func levelOrder(_ root: TreeNode?) -> [[Int]] {
          return [[Int]]()
      }
      var result = [[Int]]()
+    // 队列
      var queue = [TreeNode]()
      queue.append(r)
      while queue.count > 0 {
@@ -44,29 +45,6 @@ func levelOrder(_ root: TreeNode?) -> [[Int]] {
      return result
  }
  
- func levelOrders(_ root: TreeNode?) -> [[Int]] {
-     guard let r = root else {
-         return [[Int]]()
-     }
-     var result = [[Int]]()
-     var queue  = [TreeNode]()
-     queue.append(r)
-     // 队列不为空
-     while queue.count > 0 {
-         let layer = Array(queue)
-         var layerVals = [Int]()
-         print(queue.count)
-         queue.removeAll()
-         for node in layer {
-             layerVals.append(node.val)
-             if let ln = node.left { queue.append(ln) }
-             if let rn = node.right { queue.append(rn) }
-         }
-         result.insert(layerVals, at: 0)
-//        result.append(layerVals)
-     }
-     return result
- }
  
  
  let root5 = TreeNode.init(val: 104, left: nil, right: nil)
@@ -74,6 +52,6 @@ func levelOrder(_ root: TreeNode?) -> [[Int]] {
  let root3 = TreeNode.init(val: 102, left: root4, right: nil)
  let root2 = TreeNode.init(val: 101, left: nil, right:  nil)
  let root1 = TreeNode.init(val: 100, left: root2, right: root3)
- levelOrders(root1)
+ levelOrder(root1)
 
 
