@@ -40,10 +40,10 @@ func reverse(_ head: ListNode?) -> ListNode?{
     }
     // 直接获取链表尾部做为新head
     // 入站 获取栈顶元素 head?.next
-    // 不放在入站时候进行逻辑处理  因为会改变head?.next
     print("入战 \(head?.val ?? 0)")
     let newHead = reverse(head?.next)
-    
+    print("出战 \(head?.val ?? 0)")
+
     
     // 出站时候 处理逻辑
     // 反转 只需要把节点 2 的 next 指向 1，然后把 1 的 next 指向 null,不就行了？
@@ -56,17 +56,21 @@ func reverse(_ head: ListNode?) -> ListNode?{
      = 的右边 head?.next?.next 解析
      代表 head的下下个节点
      */
+    // ⚠️ 主要是将 之前头节点(5) 拼接到翻转后的链表后面
+    /*
+     head => 5
+     head?.next? => 4
+     */
     head?.next?.next = head
     head?.next = nil
-    print("出战 \(head?.val ?? 0)")
     return newHead
 }
 let node5 = ListNode(val: 5, next: nil)
 let node4 = ListNode(val: 4, next: node5)
 let node3 = ListNode(val: 3, next: node4)
 let m = ListNode(val: 2, next: node3)
-print("测试 \(m.next?.next?.val ?? 0)")
-print(printList(m))
+//print("测试 \(m.next?.next?.val ?? 0)")
+//print(printList(m))
 print(printList(reverse(m)!))
 
 
@@ -77,13 +81,15 @@ print(printList(reverse(m)!))
  空间复杂度：O(1)。
  */
 func reverseList(_ head: ListNode?) -> ListNode? {
-    var prev :ListNode? = nil
+    var newHead :ListNode? = nil
     var curr :ListNode? = head
     while curr != nil {
         let nextTemp = curr?.next
-        curr?.next = prev
-        prev = curr
+        
+        curr?.next = newHead
+        newHead = curr
         curr = nextTemp
     }
-    return prev
+    return newHead
 }
+
