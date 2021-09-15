@@ -38,33 +38,23 @@ func reverse(_ head: ListNode?) -> ListNode?{
     if head == nil || head?.next == nil {
         return head
     }
-    // 直接获取链表尾部做为新head
-    // 入站 获取栈顶元素 head?.next
-    print("入战 \(head?.val ?? 0)")
-    let newHead = reverse(head?.next)
-    print("出战 \(head?.val ?? 0)")
 
-    
-    // 出站时候 处理逻辑
-    // 反转 只需要把节点 2 的 next 指向 1，然后把 1 的 next 指向 null,不就行了？
-    /**
-     = 的左边  head?.next?.next 解析
-     head?.next?.  代表 head的下一个节点
-     .next 代表 head的下一个节点 的指向(next)
-     ⚠️ = 的左边最后一个next/pre 都代表指向 <head.next 的也是>
-      
-     = 的右边 head?.next?.next 解析
-     代表 head的下下个节点
-     */
-    // ⚠️ 主要是将 之前头节点(5) 拼接到翻转后的链表后面
-    /*
-     head => 5
-     head?.next? => 4
+    // 入战
+    // 翻转以第二个节点开始的链表；直接翻转head 递归无法进行下去
+    let newHead = reverse(head?.next)
+    // 出战
+
+    // ⚠️ 主要是将 之前剩下的头节点(5) 拼接到翻转后的链表后面
+    /* 如：5->4->3->2->1
+     这时
+     head?.next 是4
+     而 head == 5
      */
     head?.next?.next = head
     head?.next = nil
     return newHead
 }
+
 let node5 = ListNode(val: 5, next: nil)
 let node4 = ListNode(val: 4, next: node5)
 let node3 = ListNode(val: 3, next: node4)

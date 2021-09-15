@@ -26,8 +26,8 @@ class ListNode {
  你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
 
 
+ 
  快慢指针： 整个流程可以分为以下五个步骤：
-
  找到前半部分链表的尾节点。
  反转后半部分链表。
  判断是否回文。
@@ -53,7 +53,9 @@ class ListNode {
 
  */
 
+
 /**
+ 引入数组
  
  一共为两个步骤：
 
@@ -66,11 +68,61 @@ class ListNode {
  第二步：双指针判断是否为回文，执行了 O(n/2)次的判断，即 O(n)。
  总的时间复杂度：O(2n) = O(n)。
  空间复杂度：O(n)，其中 n 指的是链表的元素个数，我们使用了一个数组列表存放链表的元素值。
- 
- 递归思路一样：
-  不过这种方法不仅使用了 O(n) 的空间，且比第一种方法更差，因为在许多语言中，堆栈帧的开销很大（如 Python），并且最大的运行时堆栈深度为 1000（可以增加，但是有可能导致底层解释程序内存出错）。为每个节点创建堆栈帧极大的限制了算法能够处理的最大链表大小。
 
  */
+
+
+// 改变原来链表结构
+class Solution {
+    func isPalindrome(_ head: ListNode?) -> Bool {
+        if head == nil || head?.next == nil {
+              return true
+        }
+
+        
+        // 找到中间节点
+        let mid = findMidNode(head)
+        // 翻转中间节点右半部分
+        var rHead = reverseNode(mid?.next)
+        var lhead = head
+        
+        // 对比翻转后的链表
+        while rHead != nil {
+            if lhead?.val != rHead?.val {
+                return false
+            }
+            rHead = rHead?.next
+            lhead = lhead?.next
+        }
+        
+        return true
+    }
+    
+    func findMidNode(_ head: ListNode?) -> ListNode? {
+        var fast = head
+        var slow = head
+        while slow?.next != nil && fast?.next?.next != nil {
+            slow = slow?.next
+            fast = fast?.next?.next
+        }
+        return slow
+    }
+    
+    func reverseNode(_ head: ListNode?) -> ListNode? {
+        if head == nil || head?.next == nil {
+            return head
+        }
+        let newHead = reverseNode(head?.next)
+        head?.next?.next = head
+        head?.next = nil
+        return newHead
+    }
+    
+}
+
+
+// 不破坏原来链表结构
+/// 使用数组方式
 func isPalindrome(_ head: ListNode?) -> Bool {
     var nodeArray :Array = [ListNode]()
     var prev :ListNode? = ListNode.init(val: 0, next: nil)
@@ -89,3 +141,8 @@ func isPalindrome(_ head: ListNode?) -> Bool {
     }
     return true
 }
+
+/// 使用站的方式 ->  一般解决对称问题
+/**
+     以中间节点为分割；链表节点个数是奇数的话，中间数字左边放入站中，与中间数字右边的节点进行比较
+ */

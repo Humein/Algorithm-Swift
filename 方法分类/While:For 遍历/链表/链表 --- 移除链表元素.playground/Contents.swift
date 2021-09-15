@@ -14,9 +14,7 @@ class ListNode {
  
  思路：
    引入虚拟头节点 newHead 用于引用当前链表
-   引入尾节点newTail 用于构建新链表
-   当前 链表head 用于遍历
-
+   引入尾节点newTail (==虚拟头)用于遍历和构建新链表
  */
 
 class Solution {
@@ -26,11 +24,11 @@ class Solution {
         newHead.next = head
         // 新链表尾节点
         var newTail = newHead
-        
+        //
         while newTail.next != nil {
             if newTail.next!.val == val {
                 // 跳过要删除的节点
-                newTail.next = newTail.next?.next
+                newTail.next = newTail.next!.next
             } else {
                 // 继续遍历
                 newTail = newTail.next!

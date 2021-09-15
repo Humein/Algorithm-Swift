@@ -30,12 +30,16 @@ func getIntersectNode(_ headA: ListNode?, _ headB: ListNode?) -> ListNode? {
     if headA == nil || headB == nil {
         return nil
     }
+    
+    // 设置指针用于遍历
     var p1 = headA
     var p2 = headB
     // 在这里第一轮体现在pA和pB第一次到达尾部会移向另一链表的表头, 而第二轮体现在如果pA或pB相交就返回交点, 不相交最后就是null==null
+    
+    // p1 == nil 指针指向另一个链表的header (headB)
     while p1 !== p2 {
-        p1 = (p1 == nil) ? headB : p1?.next
-        p2 = (p2 == nil) ? headA : p2?.next
+        p1 = (p1 != nil) ? p1?.next : headB
+        p2 = (p2 != nil) ? p2?.next : headA
     }
     return p1
 }
