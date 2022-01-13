@@ -28,9 +28,9 @@ func invertTree(_ root: TreeNode?) -> TreeNode? {
         return root
     }
     // 入站
-    let leftNode = invertTree(root?.left)
-    let rightNode = invertTree(root?.right)
-    // 出战
+    let leftNode = invertTree(root?.left) // 二叉树最左底部左子节点
+    let rightNode = invertTree(root?.right) // 二叉树最左底部右子节点
+    // 出战 进行交换；这时root以最左边子树依次向上弹出，即以最左底部root开始。
     root?.left = rightNode
     root?.right = leftNode
     return root
