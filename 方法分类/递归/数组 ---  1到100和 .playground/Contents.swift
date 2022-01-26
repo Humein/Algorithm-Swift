@@ -39,9 +39,9 @@ recursionNM(2,6)
 //     return n * (1 + n) / 2;
 // }
 
-func recSum(_ n: Int) -> Int {
+func recsionSum(_ n: Int) -> Int{
     if n == 1 {
         return 1
     }
-    return recSum(n - 1) + n
+    return recsionSum(n-1) + n
 }
