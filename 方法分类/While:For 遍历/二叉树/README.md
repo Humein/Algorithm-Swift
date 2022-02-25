@@ -2,19 +2,19 @@
 
 [二叉树的深度遍历和广度遍历](https://www.jianshu.com/p/62f186bae583)
 
-[二叉树遍历（前序、中序、后序、层次、深度优先、广度优先遍历](https://www.cnblogs.com/aaron911/p/11055084.html)
+[实现二叉树的前中后遍历 （BFS 和 DFS ）](https://zhuanlan.zhihu.com/p/345561696)
 
  [每天学点数据结构 —— 红黑树（6k字总结](https://juejin.im/post/5dde545bf265da06074f13cc)
 
  [二叉搜索树]([https://www.neroxie.com/2018/12/02/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/](https://www.neroxie.com/2018/12/02/二叉搜索树/))
 
-### DFS / BFS 
+### DFS / BFS
 
  **dfs:**一条路走的死,用栈实现,进栈、退栈，一搜到底!一般用递归实现
 
  **bfs:** 辐射八方,用队实现,入队、出队，步步为营!一般用迭代实现
 
-
+![image-20220223161056249](/Users/zhangxinxin/Code/GitSource/MCode/Algorithm-Swift/方法分类/While:For 遍历/二叉树/image-20220223161056249.png)
 
 ### 二叉树的遍历
 
@@ -32,7 +32,7 @@
 
 
 
-讲到了**前序遍历**和**层级遍历**，而这两者本质上就是 **DFS 和 BFS**。
+讲到了**前中后序遍历**和**层级遍历**，而这两者本质上就是 **DFS 和 BFS**。
 
 
 

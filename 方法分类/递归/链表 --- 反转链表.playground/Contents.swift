@@ -53,7 +53,7 @@ func reverse220111(_ head: ListNode?) -> ListNode?{
     if head == nil || head?.next == nil {
         return head
     }
-    // 入战
+    // 入战 找出新头节点
     // 以第二个节点开始遍历链表；直至递归无法进行下去，这样就找到当前链表尾节点(即新链表头节点；⚠️这时节点还未进行翻转)
     
     print("入战链表日志 \(head?.val ?? -1)") //   1->2->3->4->nil 节点会从前向前后压入
@@ -61,14 +61,15 @@ func reverse220111(_ head: ListNode?) -> ListNode?{
     print("出战链表日志 \(head?.val ?? -1)") //  1->2->3->4->nil 节点会从后向前弹出
 
 
-    // 出战
+    // 出战 翻转next指向
     /* 1->2->3->4->nil
-     注意现在入参从3开始的：
-     head?.next is 4
+     注意现在入参是从3开始进行反转的：
+     head?.next is 4(即新头节点)
      head is 3
      */
     head?.next?.next = head
-    head?.next = nil // 这个不会导致链表从中间断掉；因为每次 head?.next?.next = head 会重置next指向 直至head为尾部节点。
+    // 依次到最最后节点(1)后next指向nil
+    head?.next = nil // 这个是不会导致链表从中间断掉；因为每次 head?.next?.next = head 会重置next指向 直至head为尾部节点。
     print("end")
     return newHead
 }
@@ -87,20 +88,24 @@ reverse220111(m)!
  时间复杂度：O(n)，假设 n 是列表的长度，时间复杂度是 O(n)。
  空间复杂度：O(1)。
  */
-func reverseList(_ head: ListNode?) -> ListNode? {
-    var newHead :ListNode? = nil
-    var curr :ListNode? = head
-    
-    while curr != nil {
-        //取出当前节点的下一个节点
-        let nextTemp = curr?.next
-        //
-        curr?.next = newHead
-        //取出当前节点
-        newHead = curr
-        //
-        curr = nextTemp
-    }
-    return newHead
-}
 
+class Solution {
+    func reverseList(_ head: ListNode?) -> ListNode? {
+        // 定义3个节点
+        var pre:ListNode? = nil
+        var cur:ListNode? = head
+        var tmp:ListNode? = nil
+
+        while cur != nil {
+            //暂存cur的下一个节点
+            tmp = cur!.next
+            //cur指向pre，实现反转
+            cur!.next = pre
+            //pre和cur同时后移一位
+            pre = cur
+            cur = tmp
+        }
+        
+        return pre
+    }
+}

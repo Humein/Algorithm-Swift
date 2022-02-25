@@ -25,27 +25,25 @@ class ListNode {
 
  */
 
-// 2021.2.24
+// 2022.2.24
 func findKNode(_ head: ListNode?,k: Int) -> ListNode?{
     // 边界
     if k <= 0 {
         return nil
     }
     
-    if head == nil || head?.next == nil {
-        return head
-    }
     // p2 fast
     var p1 :ListNode? = head, p2 :ListNode? = head
     
-    //快指针先走k步 ，为什么1开始？开始index 是 1
-    for _ in 1..<k{
+    //快指针先走k - 1 因：p2?.next 默认走了一次
+    for _ in 0..<k - 1{
         if p2?.next != nil {
             p2 = p2?.next
         }else{
             //如果k大于链表长度，返回空
             return nil
         }
+        print(p2?.val ?? 0)
     }
     
     //快慢指针同时往后遍历
@@ -56,6 +54,13 @@ func findKNode(_ head: ListNode?,k: Int) -> ListNode?{
     return p1
 }
 
+
+let node3 = ListNode.init(val: 3, next: nil)
+let node2 = ListNode.init(val: 2, next: node3)
+let node1 = ListNode.init(val: 1, next: node2)
+let node0 = ListNode.init(val: 0, next: node1)
+
+print(findKNode(node0, k: 4)?.val)
 
 //MARK: 19. 删除链表的倒数第N个节点
 /**
@@ -96,29 +101,6 @@ func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode?{
 }
 
 
-//MARK: 面试题 02.02. 返回倒数第 k 个节点
-/**
- 实现一种算法，找出单向链表中倒数第 k 个节点。返回该节点的值。
-
- 注意：本题相对原题稍作改动
- */
-class Solution {
-    func kthToLast(_ head: ListNode?, _ k: Int) -> Int {
-        if head == nil {
-            return 0
-        }
-
-        var i :ListNode! = head, j :ListNode! = head
-        for _ in 1..<k {
-            j = j.next
-        }
-        while j.next != nil {
-            i = i.next
-            j = j.next
-        }
-        return i.val
-    }
-}
 
 
 //MARK: 234. 回文链表

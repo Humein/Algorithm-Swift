@@ -12,6 +12,8 @@ class TreeNode {
     }
 }
 /**
+
+ https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/145-er-cha-shu-de-hou-xu-bian-li-by-cobbly/
  144. 二叉树的前序遍历
  给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
 
@@ -47,17 +49,6 @@ class TreeNode {
  空间复杂度：O(n)，为递归过程中栈的开销，平均情况下为 O(logn)，最坏情况下树呈现链状，为 O(n)。
  */
 
-//class SolutionRecursion {
-//    var res: [Int] = []
-//    func preorderTraversal(_ root: TreeNode?) -> [Int] {
-//    guard let root = root else { return [] }
-//    res.append(root.val)
-//    // 自顶向下的递归
-//    _ = preorderTraversal(root.left)
-//    _ = preorderTraversal(root.right)
-//    return res
-//    }
-//}
 
 class SloutionRec1 {
     var res = [Int]()
@@ -65,12 +56,29 @@ class SloutionRec1 {
         guard let root = root else {
             return []
         }
-        // 前序遍历 前-起点是root
+        // 自顶向下的DFS递归
         res.append(root.val)
         _ = preOrderTraverse(root.left)
         _ = preOrderTraverse(root.right)
         return res
     }
+}
+
+class Solution {
+  var res = [Int]()
+  func preorderTraversal(_ root: TreeNode?) -> [Int] {
+    dfs(root)
+    return res
+  }
+  
+  func dfs(_ root:TreeNode?) {
+    guard let root = root else {
+      return
+    }
+    res.append(root.val)
+    dfs(root.left)
+    dfs(root.right)
+  }
 }
 
 
@@ -85,35 +93,22 @@ class SloutionRec1 {
  空间复杂度：O(n)，为迭代过程中显式栈的开销，平均情况下为 O(log n)，最坏情况下树呈现链状，为 O(n)。
 
  */
-class SolutionStack {
-    func preorderTraversal(_ root: TreeNode?) -> [Int] {
-    if root == nil {return []}
-    var stack = [TreeNode]()
-    var res = [Int]()
-    stack.append(root!)
-    // 栈不为空
-    while let node = stack.popLast() {
-        res.append(node.val)
-        if let right = node.right { stack.append(right) }
-        if let left = node.left { stack.append(left) }
-    }
-    return res
-    }
-}
-
 class SolutionStack1 {
     func preOrderTraversal(root: TreeNode?) -> [Int] {
+        
         guard let root = root else {
             return []
         }
+        
         var stack = [TreeNode]()
         var res = [Int]()
+        
         // 栈加入处理的节点
         stack.append(root)
         // 栈不为空
         while let node = stack.popLast() {
             res.append(node.val)
-            // 根据Stack特性 先入后出: 先push右节点
+            // 根据Stack特性 先入后出: 先push右节点到Stack
             if let right = node.right {
                 stack.append(right)
             }
@@ -125,9 +120,29 @@ class SolutionStack1 {
     }
 }
 
-
-
-
+class SolutionStack2 {
+  
+  func preorderTraversal(_ root: TreeNode?) -> [Int] {
+    guard let root = root else {
+      return []
+    }
+    var res = [Int]()
+    var stack = [TreeNode]()
+    stack.append(root)
+    while !stack.isEmpty {
+      let node = stack.popLast()!
+      res.append(node.val)
+      
+      if node.right != nil {
+        stack.append(node.right!)
+      }
+      if node.left != nil {
+        stack.append(node.left!)
+      }
+    }
+    return res
+  }
+}
 
 func travelSubView(_ rootView: UIView){
     if rootView.subviews.count == 0 {

@@ -43,17 +43,20 @@ func maxDepth(_ root: TreeNode?) -> Int {
     if root == nil {
         return 0
     }
+    print("入---\(String(describing: root?.val))")
     let leftDepth = maxDepth(root?.left) + 1
+    print("出===\(String(describing: root?.val))")
     let rightDepth = maxDepth(root?.right) + 1
 
     return max(leftDepth,rightDepth)
 }
 
-let tnode7 = TreeNode(val: 7, left: nil, right: nil)
-let tnode6 = TreeNode(val: 6, left: nil, right: nil)
-let tnode5 = TreeNode(val: 5, left: tnode7, right: nil)
-let tnode4 = TreeNode(val: 4, left: nil, right: nil)
-let tnode3 = TreeNode(val: 3, left: nil, right: tnode6)
-let tnode2 = TreeNode(val: 2, left: tnode4, right: tnode5)
-let tnode1 = TreeNode(val: 1, left: tnode2, right: tnode3)
+//let tnode7 = TreeNode(val: 7, left: nil, right: nil)
+//let tnode6 = TreeNode(val: 6, left: nil, right: nil)
+//let tnode5 = TreeNode(val: 5, left: tnode7, right: nil)
+let tnode4 = TreeNode(val: -2, left: nil, right: nil)
+let tnode3 = TreeNode(val: 1, left: nil, right: nil)
+let tnode2 = TreeNode(val: -1, left: tnode4, right: nil)
+let tnode1 = TreeNode(val: 111, left: tnode2, right: tnode3)
+// 负数 左  正数 右
 maxDepth(tnode1)

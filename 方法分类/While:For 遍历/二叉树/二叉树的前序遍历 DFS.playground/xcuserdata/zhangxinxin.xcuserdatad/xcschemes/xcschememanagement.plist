@@ -4,14 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>二叉树的中序遍历 (Playground).xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-		<key>二叉树的中序遍历 DFS (Playground).xcscheme</key>
+		<key>二叉树的前序遍历 DFS (Playground).xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
